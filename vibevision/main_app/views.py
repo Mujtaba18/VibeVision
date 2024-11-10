@@ -23,6 +23,12 @@ def about(request):
 # Add new view
 ## ----------------------------------- Movie
 
+# Movie create view
+class MovieCreate( CreateView):
+    model = Movie
+    template_name = 'movies/movie_form.html'
+    fields = ['title', 'description', 'release_date']
+    success_url = '/movies/'  
 
 ## ----------------------------------- Room
 
