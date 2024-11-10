@@ -27,7 +27,21 @@ def about(request):
 class MovieCreate( CreateView):
     model = Movie
     template_name = 'movies/movie_form.html'
-    fields = '__all__'
+    fields = [
+            'title',
+            'description',
+            'duration',
+            'genres', 
+            'movie_image', 
+            'rating',
+            'release_date',
+            'language',
+            'subtitle',
+            'trailer_url',
+            'rating',
+            'age_restriction',
+            
+        ]
     success_url = '/movies/'  
 
 # Movie list view 
@@ -51,6 +65,32 @@ class MovieUpdate(UpdateView):
     success_url = '/movies/'  
 
 ## ----------------------------------- Room
+
+# Room list view 
+
+class RoomList(ListView):
+    model = Room
+    template_name = 'rooms/room_list.html'
+    
+# Room Create View
+class RoomCreate( CreateView):
+    model = Room
+    template_name = 'rooms/room_form.html'
+    fields = ['name', 'capacity']
+    success_url = '/rooms/'  
+
+# Room Update View
+class RoomUpdate( UpdateView):
+    model = Room
+    template_name = 'rooms/room_form.html'
+    fields = ['name', 'capacity']
+    success_url = '/rooms/'  
+
+# Room Delete View
+class RoomDelete(DeleteView):
+    model = Room
+    template_name = 'rooms/room_confirm_delete.html'
+    success_url = '/rooms/'  
 
 
 ## ----------------------------------- Showtime

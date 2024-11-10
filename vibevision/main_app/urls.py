@@ -14,10 +14,10 @@ urlpatterns = [
     path('movies/<int:pk>/delete/', views.MovieDelete.as_view(), name='movie_delete'),
 
     ## Room
-    # path('rooms/', views.RoomList.as_view(), name='room_list'),
-    # path('rooms/create/', views.RoomCreate.as_view(), name='room_create'),
-    # path('rooms/<int:pk>/update/', views.RoomUpdate.as_view(), name='room_update'),
-    # path('rooms/<int:pk>/delete/', views.RoomDelete.as_view(), name='room_delete'),
+    path('rooms/', views.RoomList.as_view(), name='room_list'),
+    path('rooms/create/', views.RoomCreate.as_view(), name='room_create'),
+    path('rooms/<int:pk>/update/', views.RoomUpdate.as_view(), name='room_update'),
+    path('rooms/<int:pk>/delete/', views.RoomDelete.as_view(), name='room_delete'),
 
     ## Showtime
     # path('showtimes/', views.ShowTimeList.as_view(), name='showtime_list'),

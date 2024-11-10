@@ -2,6 +2,7 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+
 }
 
 main {
@@ -12,3 +13,50 @@ footer.page-footer {
   padding-top: 0;
   text-align: right;
 }
+
+/* Table css  */
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header */
+th {
+  background-color: #444744; 
+  color: white; 
+  padding: 12px 15px;
+  text-align: left;
+}
+
+/* Table Body */
+td {
+  border: 1px solid #dddddd; 
+  padding: 12px 15px;
+}
+
+/* Zebra Striping */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Hover Effect */
+tr:hover {
+  background-color: #f1f1f1; 
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  table {
+      font-size: 14px; 
+  }
+  
+  th, td {
+      padding: 10px; 
+  }
+}
+
+/* END here table*/
