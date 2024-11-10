@@ -1,6 +1,14 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
+AGE_RE =(
+       ( 'G', 'General Audience'),
+       ('PG', 'Parental Guidance'),
+       ('PG-13', 'Parents Strongly Cautioned'),
+       ('R', 'Restricted'),
+       ('NC-17', 'Adults Only'))
+
 # Create your models here.
 class User(AbstractUser):
     ROLE_CHOICES = [
@@ -34,12 +42,19 @@ class Seat(models.Model):
 
     def __str__(self):
         return f"{self.seat_code} ({self.get_seat_type_display()}) - ${self.price}"
+    
+
 
 class Movie(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField()
-    duration = models.DurationField() 
+    description = models.TextField() 
+    duration = models.CharField(max_length=50)
     release_date = models.DateField()
+    language = models.CharField(max_length=50, default="English")
+    trailer_url = models.CharField(max_length=255, default="None")
+    movie_image = models.ImageField(upload_to='static/uploads/movie_images/', null=True, blank=True)
+    rating = models.CharField(max_length=50)  
+    age_restriction = models.CharField(max_length=150, default=AGE_RE[0][0], choices=AGE_RE)  
 
     def __str__(self):
         return self.title
