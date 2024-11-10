@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{% if object %}Edit{% else %}Add{% endif %} Movie</h1>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+<a href="{% url 'movie_list' %}">Cancel</a>
+
+<script>
+  let dateEl = document.getElementById("id_release_date")
+  M.Datepicker.init(dateEl, {
+    format: "yyyy-mm-dd",
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true,
+  })
+</script>
+
+{% endblock %}

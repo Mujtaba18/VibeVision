@@ -27,8 +27,14 @@ def about(request):
 class MovieCreate( CreateView):
     model = Movie
     template_name = 'movies/movie_form.html'
-    fields = ['title', 'description', 'release_date']
+    fields = '__all__'
     success_url = '/movies/'  
+
+# Movie list view 
+
+class MovieList(ListView):
+    model = Movie
+    template_name = 'movies/movie_list.html'
 
 ## ----------------------------------- Room
 
