@@ -1,14 +1,59 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Movie List</h1>
 <a href="{% url 'movie_create' %}">Add New Movie</a>
-<ul>
-  {% for movie in movie_list %}
-  <li>
-    {{ movie.title }} -
-    <a href="{% url 'movie_update' movie.id %}">Edit</a> |
-    <a href="{% url 'movie_delete' movie.id %}">Delete</a>
-  </li>
-  {% endfor %}
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Movie Image</th>
+      <th>Title</th>
+      <th>Genres</th>
+      <th>Subtitle</th>
+      <th>Duration</th>
+      <th>Release Date</th>
+      <th>Language</th>
+      <th>Trailer URL</th>
+      <th>Rating</th>
+      <th>Age Restriction</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for movie in movie_list %}
+    <tr>
+      <td style="font-weight: 800;">
+        {{ forloop.counter }}
+      </td>
+      <td>
+        {% if movie.movie_image %}
+        {% load static %} <img width="140px" height="90px" src={% static movie.movie_image|cut:'main_app/static/' %} />
 
+        {% else %} No Image {% endif %}
+      </td>
+      <td>{{ movie.title }}</td>
+      <td>
+        {% if movie.genres.all %}
+            {% for genre in movie.genres.all %}
+                {{ genre.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        {% else %}
+            No Genres
+        {% endif %}
+      </td>
+       <td>{{ movie.subtitle }}</td>
+      <td>{{ movie.duration }}</td>
+      <td>{{ movie.release_date }}</td>
+      <td>{{ movie.language }}</td>
+      <td><a href="{{ movie.trailer_url }}">Watch Trailer</a></td>
+
+      <td>{{ movie.rating }}</td>
+      <td>{{ movie.age_restriction }}</td>
+      <td>
+        <a href="{% url 'movie_update' movie.id %}">Edit</a> |
+        <a href="{% url 'movie_delete' movie.id %}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

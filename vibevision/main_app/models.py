@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
@@ -8,6 +9,14 @@ AGE_RE =(
        ('PG-13', 'Parents Strongly Cautioned'),
        ('R', 'Restricted'),
        ('NC-17', 'Adults Only'))
+
+LANGUAGES = (
+    ('Arabic','ARB'),
+    ( 'English','ENG',),
+    ( 'Hindi', 'HIN')
+)
+
+
 
 # Create your models here.
 class User(AbstractUser):
@@ -43,19 +52,24 @@ class Seat(models.Model):
     def __str__(self):
         return f"{self.seat_code} ({self.get_seat_type_display()}) - ${self.price}"
     
+class Genre(models.Model):
+    name = models.CharField(max_length=50, unique=True)
 
+    def __str__(self):
+        return self.name
 
 class Movie(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField() 
+    subtitle = models.CharField(max_length=50, choices=LANGUAGES , default=LANGUAGES[0][1])
     duration = models.CharField(max_length=50)
     release_date = models.DateField()
-    language = models.CharField(max_length=50, default="English")
+    language = models.CharField(max_length=50, choices=LANGUAGES , default=LANGUAGES[0][1])
     trailer_url = models.CharField(max_length=255, default="None")
-    movie_image = models.ImageField(upload_to='static/uploads/movie_images/', null=True, blank=True)
-    rating = models.CharField(max_length=50)  
+    movie_image = models.ImageField(upload_to='main_app/static/uploads/movie_images', null=True, blank=True )
+    rating = models.DecimalField(decimal_places=1, default=0, max_digits=3)  
     age_restriction = models.CharField(max_length=150, default=AGE_RE[0][0], choices=AGE_RE)  
-
+    genres = models.ManyToManyField(Genre, blank=True)
     def __str__(self):
         return self.title
     

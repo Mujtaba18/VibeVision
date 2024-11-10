@@ -35,8 +35,7 @@ class MovieCreate( CreateView):
 class MovieList(ListView):
     model = Movie
     template_name = 'movies/movie_list.html'
-
-    fields = ['title']
+    
 
 #  movie delete view 
 class MovieDelete(DeleteView):
