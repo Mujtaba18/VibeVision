@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
+    path('accounts/', include('django.contrib.auth.urls')),
 
     ## Movie
     # path('movies/', views.MovieList.as_view(), name='movie_list'),
