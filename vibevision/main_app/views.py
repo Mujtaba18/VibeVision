@@ -42,6 +42,13 @@ class MovieDelete(DeleteView):
     template_name = 'movies/movie_confirm_delete.html'
     success_url = '/movies/'  
 
+#  movie update view 
+class MovieUpdate(UpdateView):
+    model= Movie
+    fields ='__all__'
+    template_name = 'movies/movie_form.html'
+    success_url = '/movies/'  
+
 ## ----------------------------------- Room
 
 
