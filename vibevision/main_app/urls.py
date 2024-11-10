@@ -7,7 +7,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('accounts/', include('django.contrib.auth.urls')),
-
+    path('accounts/signup/', views.signup, name='signup'),
+    
     ## Movie
     # path('movies/', views.MovieList.as_view(), name='movie_list'),
     # path('movies/create/', views.MovieCreate.as_view(), name='movie_create'),

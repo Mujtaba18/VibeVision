@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
+
 <body>
   <header class="navbar-fixed">
     <nav>
@@ -20,6 +22,19 @@
         </ul>
         <ul class="right">
           <li><a href="/about">About</a></li>
+
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          <li>
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button type="submit"> Log Out</button>
+            </form>
+          </li>
+          {% else %}
+          <li><a href="{% url 'signup' %}">Sign up</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
@@ -32,4 +47,5 @@
     <div class="right">All Rights Reserved, &copy; 2024 VibeVision &nbsp;</div>
   </footer>
 </body>
+
 </html>
