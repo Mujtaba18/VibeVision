@@ -36,6 +36,12 @@ class MovieList(ListView):
     model = Movie
     template_name = 'movies/movie_list.html'
 
+#  movie delete view 
+class MovieDelete(DeleteView):
+    model= Movie
+    template_name = 'movies/movie_confirm_delete.html'
+    success_url = '/movies/'  
+
 ## ----------------------------------- Room
 
 
