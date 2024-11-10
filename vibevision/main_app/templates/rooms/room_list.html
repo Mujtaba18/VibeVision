@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+{% block content %}
+<h1>Room List</h1>
+<a href="{% url 'room_create' %}">Add New Room</a>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Room Name</th>
+      <th>Capacity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for room in room_list %}
+    <tr>
+      <td style="font-weight: 800;">
+        {{ forloop.counter }}
+      </td>
+      <td>{{ room.name }}</td>
+      <td>{{ room.capacity }}</td>
+      <td>
+        <a href="{% url 'room_update' room.id %}" class="btn blue">Edit</a> 
+        <a href="{% url 'room_delete' room.id %}" class="btn red">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
