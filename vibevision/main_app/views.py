@@ -11,6 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CustomUserCreationForm
+from .forms import UserProfileForm
 # Create your views here.
 
 def home(request):
@@ -39,6 +40,24 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+def profile(request):
+  user = request.user
+  if request.method == 'POST':
+     form = UserProfileForm(request.POST, request.FILES, instance=user)
+     if form.is_valid():
+        form.save()
+        return redirect('profile')
+     else:
+      error_message = 'Invalid update profile - try again'
+
+  form = UserProfileForm(instance=user)
+
+  context = {
+        'form': form,
+        'user': user,
+  }
+
+  return render(request, 'profile.html', context)
 # Add new view
 ## ----------------------------------- Movie
 

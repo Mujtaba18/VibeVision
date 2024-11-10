@@ -29,6 +29,8 @@
           {% else %}
           <li>Welcome, User!</li>
           {% endif %}
+          <li><a href="{% url 'profile' %}">Profile</a></li>
+          <li>
           <li><a href="{% url 'logout' %}">Logout</a></li>
           <li>
             <form action="{% url 'logout' %}" method="post">
