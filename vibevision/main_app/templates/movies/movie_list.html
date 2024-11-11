@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Movie List</h1>
-<table >
+<table id="movieTable" class="display">
   <thead >
     <tr>
       <th>#</th>
@@ -55,9 +55,25 @@
       <td colspan="2">
         <a href="{% url 'movie_update' movie.id %}" class="btn blue">Edit</a> 
         <a href="{% url 'movie_delete' movie.id %}" class="btn red">Delete</a>
+        <a href="{% url 'showtime_create' %}?movie_id={{ movie.id }}" class="btn green">Add Showtime</a>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#movieTable').DataTable({
+      pageLength: 6, 
+      lengthMenu: [6, 10, 25, 50], 
+      
+
+    });
+  });
+</script>
 {% endblock %}
+

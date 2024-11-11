@@ -160,3 +160,29 @@ button[type="submit"]:hover {
 
 
 /*  END here  */
+
+/*  */
+/* Style for the DataTable */
+#movieTable_length label{
+ display: none;
+}
+
+#movieTable_filter label {
+  font-weight: bold;
+  margin: 0;
+}
+
+#movieTable_filter input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  width: 240px; 
+  height: 30px;
+}
+
+#movieTable_filter input:focus {
+  border-color: #007bff; 
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /
+}
+/* end  */

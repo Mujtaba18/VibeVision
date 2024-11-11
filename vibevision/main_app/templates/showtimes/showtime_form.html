@@ -3,7 +3,6 @@
 {% block content %}
 <h1>{% if object %}Edit{% else %}Add{% endif %} ShowTime</h1>
 
-<!-- Display non-field errors, if any -->
 {% if form.non_field_errors %}
     <div class="error">{{ form.non_field_errors }}</div>
 {% endif %}
@@ -13,9 +12,9 @@
     
     <div>
         <label for="movie">Movie:</label>
-        <select name="movie" id="movie">
+        <select name="movie" id="movie" disabled>
             {% for movie in movies %}
-                <option value="{{ movie.id }}"{% if object and object.movie.id == movie.id %} selected{% endif %}>
+                <option value="{{ movie.id }}"{% if selected_movie_id and movie.id == selected_movie_id|add:"0" %} selected{% endif %}>
                     {{ movie.title }}
                 </option>
             {% endfor %}
@@ -35,7 +34,7 @@
 
     <div>
         <label for="show_time">Show Time:</label>
-        <input type="datetime-local" name="show_time" value="{% if object %}{{ object.show_time|date:'Y-m-d H:i' }}{% endif %}">
+        <input type="datetime-local" name="show_time" id="show_time" value="{% if object %}{{ object.show_time|date:'Y-m-d H:i' }}{% endif %}">
         {% if form.show_time.errors %}
             <div class="error">{{ form.show_time.errors }}</div>
         {% endif %}
@@ -50,10 +49,9 @@
   let movieSelect = document.getElementById('movie');
   let roomSelect = document.getElementById('room');
 
-  M.Datepicker.init(dateEl, {
-      format: 'yyyy-mm-ddTHH:mm',
-  });
   M.FormSelect.init(movieSelect);
   M.FormSelect.init(roomSelect);
 </script>
 {% endblock %}
+
+

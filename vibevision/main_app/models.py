@@ -95,31 +95,37 @@ class ShowTime(models.Model):
             if match:
                 minutes = int(match.group(1))  # Extract the number of minutes
                 duration = timedelta(minutes=minutes)
-                self.show_end_time = self.show_time + duration + timedelta(minutes=30) 
-                # added extra 30 min for cleaning the room and organizing
+                self.show_end_time = self.show_time + duration + timedelta(minutes=30)  # Added extra 30 min for cleaning
             else:
-                self.show_end_time = self.show_time  
+                self.show_end_time = self.show_time
         else:
-            self.show_end_time = self.show_time  
-        
+            self.show_end_time = self.show_time
+
+        # Call clean method to perform validations
+        self.clean()
+
         super().save(*args, **kwargs)
 
     def clean(self):
         # Ensure show_end_time is calculated before validation
         if self.show_end_time is None:
-            self.show_end_time = self.show_time + timedelta(minutes=20) 
+            self.show_end_time = self.show_time + timedelta(minutes=20)
 
         # Validate that show_end_time is after show_time
         if self.show_end_time < self.show_time:
             raise ValidationError("Show end time must be after show time.")
-        
+
         # Check for overlapping show times in the same room
         overlapping_shows = ShowTime.objects.filter(
             room=self.room,
             show_time__lt=self.show_end_time,
             show_end_time__gt=self.show_time
         )
-        # if the overlapping exists 
+
+        # Exclude the current instance if updating
+        if self.pk:
+            overlapping_shows = overlapping_shows.exclude(pk=self.pk)
+
         if overlapping_shows.exists():
             raise ValidationError("There is already a show in this room during the specified time.")
 

@@ -101,26 +101,41 @@ class ShowTimeList( ListView):
     template_name = 'showtimes/showtime_list.html'
 
 # ShowTime Create View
+from django.views.generic.edit import CreateView
+from .models import ShowTime, Movie, Room
+
 class ShowTimeCreate(CreateView):
     model = ShowTime
     template_name = 'showtimes/showtime_form.html'
-    fields = ['movie', 'room', 'show_time']
-    success_url = '/showtimes/' 
-
-    
+    fields = ['room', 'show_time']  
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['movies'] = Movie.objects.all()
-        context['rooms'] = Room.objects.all()
+        context['movies'] = Movie.objects.all()   # send movies data to templates
+        context['rooms'] = Room.objects.all()    # send rooms data to templates
+        
+        movie_id = self.request.GET.get('movie_id')
+        if movie_id:
+            context['selected_movie_id'] = movie_id 
+        
         return context
+
+    def form_valid(self, form):
+        movie_id = self.request.GET.get('movie_id')  # Get movie_id from query params
+        if movie_id:
+            form.instance.movie_id = movie_id  
+        return super().form_valid(form)
+
+    success_url = '/showtimes/' 
+
+
     
 
 # ShowTime Update View
 class ShowTimeUpdate( UpdateView):
     model = ShowTime
     template_name = 'showtimes/showtime_form.html'
-    fields = ['movie', 'room', 'show_time']
+    fields = ['room', 'show_time']
     success_url = '/showtimes/'  
 
     def get_context_data(self, **kwargs):
