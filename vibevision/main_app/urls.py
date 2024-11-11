@@ -26,8 +26,7 @@ urlpatterns = [
     path('showtimes/<int:pk>/delete/', views.ShowTimeDelete.as_view(), name='showtime_delete'),
 
     ## Seat
-
-
+    
     ## BookingSeat
 
 

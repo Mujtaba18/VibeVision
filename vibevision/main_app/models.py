@@ -83,7 +83,7 @@ class ShowTime(models.Model):
     movie = models.ForeignKey('Movie', on_delete=models.CASCADE, related_name='showtimes')
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     show_time = models.DateTimeField()
-    show_end_time = models.DateTimeField(null=True ,editable=False)  # New field for end time
+    show_end_time = models.DateTimeField(null=True ,editable=False)  
     
     class Meta:
         unique_together = ('movie', 'room', 'show_time')
@@ -95,29 +95,31 @@ class ShowTime(models.Model):
             if match:
                 minutes = int(match.group(1))  # Extract the number of minutes
                 duration = timedelta(minutes=minutes)
-                self.show_end_time = self.show_time + duration + timedelta(minutes=30)
+                self.show_end_time = self.show_time + duration + timedelta(minutes=30) 
+                # added extra 30 min for cleaning the room and organizing
             else:
-                self.show_end_time = self.show_time  # Fallback if the duration format is incorrect
+                self.show_end_time = self.show_time  
         else:
-            self.show_end_time = self.show_time  # Fallback if no duration is provided
+            self.show_end_time = self.show_time  
         
         super().save(*args, **kwargs)
 
     def clean(self):
         # Ensure show_end_time is calculated before validation
         if self.show_end_time is None:
-            self.show_end_time = self.show_time + timedelta(minutes=20)  # Fallback if not set
+            self.show_end_time = self.show_time + timedelta(minutes=20) 
 
         # Validate that show_end_time is after show_time
         if self.show_end_time < self.show_time:
             raise ValidationError("Show end time must be after show time.")
         
-                # Check for overlapping show times in the same room
+        # Check for overlapping show times in the same room
         overlapping_shows = ShowTime.objects.filter(
             room=self.room,
             show_time__lt=self.show_end_time,
             show_end_time__gt=self.show_time
         )
+        # if the overlapping exists 
         if overlapping_shows.exists():
             raise ValidationError("There is already a show in this room during the specified time.")
 
