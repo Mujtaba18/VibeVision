@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 AGE_RE =(
@@ -70,19 +71,58 @@ class Movie(models.Model):
     rating = models.DecimalField(decimal_places=1, default=0, max_digits=3)  
     age_restriction = models.CharField(max_length=150, default=AGE_RE[0][0], choices=AGE_RE)  
     genres = models.ManyToManyField(Genre, blank=True)
+
     def __str__(self):
         return self.title
-    
+
+
+from datetime import timedelta
+import re
+
 class ShowTime(models.Model):
     movie = models.ForeignKey('Movie', on_delete=models.CASCADE, related_name='showtimes')
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    start_time = models.DateTimeField()
+    show_time = models.DateTimeField()
+    show_end_time = models.DateTimeField(null=True ,editable=False)  # New field for end time
     
     class Meta:
-        unique_together = ('movie', 'room', 'start_time')
+        unique_together = ('movie', 'room', 'show_time')
     
+    def save(self, *args, **kwargs):
+        # Calculate the end time based on movie duration
+        if self.movie.duration:
+            match = re.match(r'(\d+):min', self.movie.duration)
+            if match:
+                minutes = int(match.group(1))  # Extract the number of minutes
+                duration = timedelta(minutes=minutes)
+                self.show_end_time = self.show_time + duration + timedelta(minutes=30)
+            else:
+                self.show_end_time = self.show_time  # Fallback if the duration format is incorrect
+        else:
+            self.show_end_time = self.show_time  # Fallback if no duration is provided
+        
+        super().save(*args, **kwargs)
+
+    def clean(self):
+        # Ensure show_end_time is calculated before validation
+        if self.show_end_time is None:
+            self.show_end_time = self.show_time + timedelta(minutes=20)  # Fallback if not set
+
+        # Validate that show_end_time is after show_time
+        if self.show_end_time < self.show_time:
+            raise ValidationError("Show end time must be after show time.")
+        
+                # Check for overlapping show times in the same room
+        overlapping_shows = ShowTime.objects.filter(
+            room=self.room,
+            show_time__lt=self.show_end_time,
+            show_end_time__gt=self.show_time
+        )
+        if overlapping_shows.exists():
+            raise ValidationError("There is already a show in this room during the specified time.")
+
     def __str__(self):
-        return f"{self.movie.title} in {self.room.name} at {self.start_time}"
+        return f"{self.movie.title} in {self.room.name} at {self.show_time}"
 
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings')
@@ -93,7 +133,7 @@ class Booking(models.Model):
     booking_time = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"Booking by {self.user.username} for {self.movie.title} in {self.room.name} at {self.showtime.start_time}"
+        return f"Booking by {self.user.username} for {self.movie.title} in {self.room.name} at {self.showtime.show_time}"
 
 class BookingSeat(models.Model):
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)

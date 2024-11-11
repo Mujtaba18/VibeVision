@@ -95,6 +95,46 @@ class RoomDelete(DeleteView):
 
 ## ----------------------------------- Showtime
 
+# ShowTime List View
+class ShowTimeList( ListView):
+    model = ShowTime
+    template_name = 'showtimes/showtime_list.html'
+
+# ShowTime Create View
+class ShowTimeCreate(CreateView):
+    model = ShowTime
+    template_name = 'showtimes/showtime_form.html'
+    fields = ['movie', 'room', 'show_time']
+    success_url = '/showtimes/' 
+
+    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['movies'] = Movie.objects.all()
+        context['rooms'] = Room.objects.all()
+        return context
+    
+
+# ShowTime Update View
+class ShowTimeUpdate( UpdateView):
+    model = ShowTime
+    template_name = 'showtimes/showtime_form.html'
+    fields = ['movie', 'room', 'show_time']
+    success_url = '/showtimes/'  
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['movies'] = Movie.objects.all()
+        context['rooms'] = Room.objects.all()
+        return context
+
+# ShowTime Delete View
+class ShowTimeDelete( DeleteView):
+    model = ShowTime
+    template_name = 'showtimes/showtime_confirm_delete.html'
+    success_url = '/showtimes/' 
+
 
 ## ----------------------------------- Seat
 
