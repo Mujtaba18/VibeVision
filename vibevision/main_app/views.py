@@ -42,6 +42,10 @@ def signup(request):
 
 def profile(request):
   user = request.user
+  return render(request, 'profile/profile.html', {'user': user})
+
+def profile_update(request):
+  user = request.user
   if request.method == 'POST':
      form = UserProfileForm(request.POST, request.FILES, instance=user)
      if form.is_valid():
@@ -57,7 +61,9 @@ def profile(request):
         'user': user,
   }
 
-  return render(request, 'profile.html', context)
+  return render(request, 'profile/profile_edit.html', context)
+
+
 # Add new view
 ## ----------------------------------- Movie
 
