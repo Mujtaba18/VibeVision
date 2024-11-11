@@ -12,6 +12,7 @@
   let subtitle = document.getElementById("id_subtitle")
   let language = document.getElementById("id_language")
   let genres = document.getElementById("id_genres")
+  let status = document.getElementById("id_status")
 
   M.Datepicker.init(dateEl, {
     format: "yyyy-mm-dd",
@@ -22,6 +23,7 @@
   M.FormSelect.init(subtitle)
   M.FormSelect.init(language)
   M.FormSelect.init(genres);
+  M.FormSelect.init(status);
 </script>
 
 {% endblock %}

@@ -68,7 +68,7 @@ def profile_update(request):
 ## ----------------------------------- Movie
 
 # Movie create view
-class MovieCreate( CreateView):
+class MovieCreate(LoginRequiredMixin,  CreateView):
     model = Movie
     template_name = 'movies/movie_form.html'
     fields = [
@@ -84,9 +84,13 @@ class MovieCreate( CreateView):
             'trailer_url',
             'rating',
             'age_restriction',
-            
+            'status'
         ]
     success_url = '/movies/'  
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user  # Attach the current user to the movie
+        return super().form_valid(form)
 
 # Movie list view 
 

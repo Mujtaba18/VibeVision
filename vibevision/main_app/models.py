@@ -18,6 +18,11 @@ LANGUAGES = (
     ( 'Hindi', 'HIN')
 )
 
+MOVIE_STATUS = (
+    ('Now Showing','Now Showing'),
+    ( 'Coming Soon','Coming Soon',),
+)
+
 
 
 # Create your models here.
@@ -73,6 +78,7 @@ class Movie(models.Model):
     rating = models.DecimalField(decimal_places=1, default=0, max_digits=3)  
     age_restriction = models.CharField(max_length=150, default=AGE_RE[0][0], choices=AGE_RE)  
     genres = models.ManyToManyField(Genre, blank=True)
+    status = models.CharField(max_length=50, choices=MOVIE_STATUS , default=MOVIE_STATUS[0][1])
 
     def __str__(self):
         return self.title

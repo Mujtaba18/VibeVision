@@ -139,6 +139,18 @@ button[type="submit"]:hover {
   margin-bottom: 15px;
 }
 
+.nostyle {
+  all: unset;
+}
+
+.logout-link {
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent !important;
+  border: none;
+  text-align: left;
+}
+
 /* Responsive Design */
 @media (max-width: 600px) {
   .form-container {

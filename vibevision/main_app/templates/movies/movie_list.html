@@ -14,6 +14,7 @@
       <th>Trailer URL</th>
       <th>Rating</th>
       <th>Age Restriction</th>
+      <th>Status</th>
       <th>Actions</th>
       <th colspan="2"><a href="{% url 'movie_create' %}" style="color: white; background-color: #039be5; padding: 10px; border-radius: 10px; text-align: center; display: flex;">  <i class="material-icons">add   </i>
        </a>
@@ -52,6 +53,7 @@
 
       <td>{{ movie.rating }}</td>
       <td>{{ movie.age_restriction }}</td>
+      <td>{{ movie.status }}</td>
       <td colspan="2">
         <a href="{% url 'movie_update' movie.id %}" class="btn blue">Edit</a> 
         <a href="{% url 'movie_delete' movie.id %}" class="btn red">Delete</a>
