@@ -1,1 +1,57 @@
-<h1>Hello</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="scrolling-div">
+  <h3>Now Showing</h3>
+  <div class="carousel-container top-carousel">
+    <a class="carousel-item" href="#one!"
+      ><img
+        src="{% static 'uploads/venom.jpg' %}"
+        alt="Venom"
+        style="width: 200px; height: 250px"
+    /></a>
+    <a class="carousel-item" href="#two!"
+      ><img
+        src="{% static 'uploads/the_wild_robot.jpg' %}"
+        alt="Robot"
+        style="width: 200px; height: 250px"
+    /></a>
+    <a class="carousel-item" href="#three!"
+      ><img
+        src="{% static 'uploads/panda_plan.jpg' %}"
+        alt="Panda"
+        style="width: 200px; height: 250px"
+    /></a>
+  </div>
+  <button class="scroll-button scroll-left-top">&#8592;</button>
+  <button class="scroll-button scroll-right-top">&#8594;</button>
+</div>
+
+<div class="scrolling-div">
+  <h3>Coming Soon</h3>
+  <div class="carousel-container bottom-carousel">
+    <a class="carousel-item" href="#one!"
+      ><img
+        src="{% static 'uploads/venom.jpg' %}"
+        alt="Venom"
+        style="width: 200px; height: 250px"
+    /></a>
+    <a class="carousel-item" href="#two!"
+      ><img
+        src="{% static 'uploads/the_wild_robot.jpg' %}"
+        alt="Robot"
+        style="width: 200px; height: 250px"
+    /></a>
+    <a class="carousel-item" href="#three!"
+      ><img
+        src="{% static 'uploads/panda_plan.jpg' %}"
+        alt="Panda"
+        style="width: 200px; height: 250px"
+    /></a>
+  </div>
+  <button class="scroll-button scroll-left-bottom">&#8592;</button>
+  <button class="scroll-button scroll-right-bottom">&#8594;</button>
+</div>
+
+{% endblock %}

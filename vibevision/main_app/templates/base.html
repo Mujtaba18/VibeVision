@@ -2,34 +2,84 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>VibeVision</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
-<body>
-  <header class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper">
-        <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;VibeVision</a></li>
-        </ul>
-        <ul class="right">
-          <li><a href="/about">About</a></li>
-        </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>VibeVision</title>
+   
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+   
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
+  </head>
+  <body>
+
+    <header class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <ul>
+            <li>
+              <a href="/" class="left brand-logo">&nbsp;&nbsp;VibeVision</a>
+            </li>
+          </ul>
+          <ul class="right">
+            <li><a href="/about">About</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">{% block content %} {% endblock %}</main>
+
+    <footer class="page-footer">
+      <div class="right">
+        All Rights Reserved, &copy; 2024 VibeVision &nbsp;
       </div>
-    </nav>
-  </header>
-  <main class="container">
-    {% block content %}
-    {% endblock %}
-  </main>
-  <footer class="page-footer">
-    <div class="right">All Rights Reserved, &copy; 2024 VibeVision &nbsp;</div>
-  </footer>
-</body>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+
+document.querySelector(".scroll-left-top").addEventListener("click", function () {
+  const carouselContainer = document.querySelector(".top-carousel");
+  carouselContainer.scrollBy({
+    left: -220, 
+    behavior: "smooth",
+  });
+});
+
+document.querySelector(".scroll-right-top").addEventListener("click", function () {
+  const carouselContainer = document.querySelector(".top-carousel");
+  carouselContainer.scrollBy({
+    left: 220,
+    behavior: "smooth",
+  });
+});
+
+document.querySelector(".scroll-left-bottom").addEventListener("click", function () {
+  const carouselContainer = document.querySelector(".bottom-carousel");
+  carouselContainer.scrollBy({
+    left: -220,
+    behavior: "smooth",
+  });
+});
+
+document.querySelector(".scroll-right-bottom").addEventListener("click", function () {
+  const carouselContainer = document.querySelector(".bottom-carousel");
+  carouselContainer.scrollBy({
+    left: 220,
+    behavior: "smooth",
+  });
+});
+
+    </script>
+  </body>
 </html>

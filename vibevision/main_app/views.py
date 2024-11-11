@@ -22,6 +22,11 @@ def about(request):
 
 # Add new view
 ## ----------------------------------- Movie
+def movies(request):
+    return render(request, 'movies/index.html')
+
+def movies_detail(request):
+    return render(request, 'movies/movie_detail.html')
 
 
 ## ----------------------------------- Room
