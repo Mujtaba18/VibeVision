@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{% if object %}Edit{% else %}Add{% endif %} Movie</h1>
+<form method="post"  enctype="multipart/form-data">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+<a href="{% url 'movie_list' %}">Cancel</a>
+
+<script>
+  let dateEl = document.getElementById("id_release_date")
+  let ageRestriction = document.getElementById("id_age_restriction")
+  let subtitle = document.getElementById("id_subtitle")
+  let language = document.getElementById("id_language")
+  let genres = document.getElementById("id_genres")
+
+  M.Datepicker.init(dateEl, {
+    format: "yyyy-mm-dd",
+
+  })
+
+  M.FormSelect.init(ageRestriction)
+  M.FormSelect.init(subtitle)
+  M.FormSelect.init(language)
+  M.FormSelect.init(genres);
+</script>
+
+{% endblock %}
