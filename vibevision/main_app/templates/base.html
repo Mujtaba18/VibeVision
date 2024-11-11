@@ -22,7 +22,7 @@
         </ul>
         <ul class="right">
           <li><a href="/about">About</a></li>
-
+          <li><a href="{% url 'seat_list' %}">Seats</a></li>
           {% if user.is_authenticated %}
           {% if user.role == 'admin' %}
           <li>Welcome, Admin!</li>

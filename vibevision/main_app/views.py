@@ -76,6 +76,31 @@ def profile_update(request):
 
 ## ----------------------------------- Seat
 
+# Seat list view 
+
+class SeatList(ListView):
+    model = Seat
+    template_name = 'seats/seat_list.html'
+    
+# Seat Create View
+class SeatCreate( CreateView):
+    model = Seat
+    template_name = 'seats/seat_form.html'
+    fields = ['seat_code', 'seat_type', 'price']
+    success_url = '/seat/'  
+
+# Seat Update View
+class SeatUpdate( UpdateView):
+    model = Seat
+    template_name = 'seats/seat_form.html'
+    fields = ['seat_code', 'seat_type', 'price']
+    success_url = '/seat/'  
+
+# Seat Delete View
+class SeatDelete(DeleteView):
+    model = Seat
+    template_name = 'seats/seat_confirm_delete.html'
+    success_url = '/seat/'  
 
 ## ----------------------------------- BookingSeat
 

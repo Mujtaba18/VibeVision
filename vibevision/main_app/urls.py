@@ -30,7 +30,10 @@ urlpatterns = [
     # path('showtimes/<int:pk>/delete/', views.ShowTimeDelete.as_view(), name='showtime_delete'),
 
     ## Seat
-
+    path('seat/', views.SeatList.as_view(), name='seat_list'),
+    path('seat/create/', views.SeatCreate.as_view(), name='seat_create'),
+    path('seat/<int:pk>/update/', views.SeatUpdate.as_view(), name='seat_update'),
+    path('seat/<int:pk>/delete/', views.SeatDelete.as_view(), name='seat_delete'),
 
     ## BookingSeat
 
