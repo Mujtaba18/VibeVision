@@ -41,4 +41,15 @@ urlpatterns = [
 
     ## Booking
 
+
+
+
+
+
+
+
+
+    # i will delete it later
+    path('ditail/', views.detail, name='detail'),
+
 ]
