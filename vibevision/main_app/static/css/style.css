@@ -243,7 +243,13 @@ button[type="submit"]:hover {
   margin: 0 auto;
 }
 
-/* Index.html */
+/* Movie List */
+.movie-table {
+  max-width: 100%; 
+  overflow-y: auto; 
+  white-space: nowrap; 
+}
+
 .backoff-moviecard {
   display: flex;
   flex-wrap: wrap;
@@ -420,7 +426,7 @@ button[type="submit"]:hover {
 
 /* seat_list */
 .container {
-  max-width: 800px;
+  max-width: 100vw;
   margin: 0 auto;
   text-align: center;
 }
