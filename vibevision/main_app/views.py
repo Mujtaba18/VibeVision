@@ -63,10 +63,6 @@ def profile_update(request):
 
   return render(request, 'profile/profile_edit.html', context)
 
-
-# Add new view
-## ----------------------------------- Movie
-
 # Movie create view
 class MovieCreate(LoginRequiredMixin,  CreateView):
     model = Movie
@@ -185,6 +181,8 @@ class ShowTimeDelete( DeleteView):
 
 
 ## ----------------------------------- Seat
+def seat_list(request):
+    return render(request, 'seats/seat_list.html')
 
 # Seat list view 
 

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h2></h2>
+
+<div class="detail-detail">
+  <div class="Detail-img">
+    <img
+      src="{% static 'uploads/venom.jpg' %}"
+      alt="Venom"
+      
+    />
+  </div>
+
+  <div class="movie-detail">
+  <div class="pg">
+    <p>PG-13</p>
+  </div>
+    <p id="detail">Name: Venom</p>
+    <p id="detail">Language: English</p>
+    <p id="detail">Subtitle: Arabic</p>
+    <p id="detail">Genre: Action</p>
+    <p id="detail">Release Date: 10/11/2024</p>
+  </div>
+</div>
+
+{% endblock %}

@@ -31,4 +31,127 @@
     {% endfor %}
   </tbody>
 </table>
+
+<div class="container">
+    <h3>Select Your Seats</h3>
+    <div class="seats">
+        
+      <p>A</p>
+      <div class="seat" data-seat="A1"></div>
+      <div class="seat" data-seat="A2"></div>
+      <div class="seat" data-seat="A3"></div>
+      <div class="seat" data-seat="A4"></div>
+      <div class="seat" data-seat="A5"></div>
+      <div class="seat" data-seat="A6"></div>
+      <div class="seat" data-seat="A7"></div>
+      <div class="seat" data-seat="A8"></div>
+      <div class="seat" data-seat="A9"></div>
+      <div class="seat" data-seat="A10"></div>
+      
+      <p>B</p>
+      <div class="seat" data-seat="B1"></div>
+      <div class="seat" data-seat="B2"></div>
+      <div class="seat" data-seat="B3"></div>
+      <div class="seat" data-seat="B4"></div>
+      <div class="seat" data-seat="B5"></div>
+      <div class="seat" data-seat="B6"></div>
+      <div class="seat" data-seat="B7"></div>
+      <div class="seat" data-seat="B8"></div>
+      <div class="seat" data-seat="B9"></div>
+      <div class="seat" data-seat="B10"></div>
+      
+      <p>C</p>
+      <div class="seat" data-seat="C1"></div>
+      <div class="seat" data-seat="C2"></div>
+      <div class="seat" data-seat="C3"></div>
+      <div class="seat" data-seat="C4"></div>
+      <div class="seat" data-seat="C5"></div>
+      <div class="seat" data-seat="C6"></div>
+      <div class="seat" data-seat="C7"></div>
+      <div class="seat" data-seat="C8"></div>
+      <div class="seat" data-seat="C9"></div>
+      <div class="seat" data-seat="C10"></div>
+      
+      <p>D</p>
+      <div class="seat" data-seat="D1"></div>
+      <div class="seat" data-seat="D2"></div>
+      <div class="seat" data-seat="D3"></div>
+      <div class="seat" data-seat="D4"></div>
+      <div class="seat" data-seat="D5"></div>
+      <div class="seat" data-seat="D6"></div>
+      <div class="seat" data-seat="D7"></div>
+      <div class="seat" data-seat="D8"></div>
+      <div class="seat" data-seat="D9"></div>
+      <div class="seat" data-seat="D10"></div>
+      
+      <p>E</p>
+      <div class="seat" data-seat="E1"></div>
+      <div class="seat" data-seat="E2"></div>
+      <div class="seat" data-seat="E3"></div>
+      <div class="seat" data-seat="E4"></div>
+      <div class="seat" data-seat="E5"></div>
+      <div class="seat" data-seat="E6"></div>
+      <div class="seat" data-seat="E7"></div>
+      <div class="seat" data-seat="E8"></div>
+      <div class="seat" data-seat="E9"></div>
+      <div class="seat" data-seat="E10"></div>
+      
+      <p>F</p>
+      <div class="seat" data-seat="F1"></div>
+      <div class="seat" data-seat="F2"></div>
+      <div class="seat" data-seat="F3"></div>
+      <div class="seat" data-seat="F4"></div>
+      <div class="seat" data-seat="F5"></div>
+      <div class="seat" data-seat="F6"></div>
+      <div class="seat" data-seat="F7"></div>
+      <div class="seat" data-seat="F8"></div>
+      <div class="seat" data-seat="F9"></div>
+      <div class="seat" data-seat="F10"></div>
+
+    </div>
+    
+    <div class="info">
+        <p><strong>Selected Seats:</strong> <span id="selected-seats">None</span></p>
+        <button id="book-seats" disabled>Book Seats</button>
+    </div>
+</div>
+
+<script>
+    const seats = document.querySelectorAll('.seat');
+    const selectedSeatsElement = document.getElementById('selected-seats');
+    const bookButton = document.getElementById('book-seats');
+    let selectedSeats = [];
+
+    seats.forEach(seat => {
+        seat.addEventListener('click', () => {
+            if (seat.classList.contains('booked')) {
+                return;
+            }
+
+            seat.classList.toggle('selected');
+            const seatNumber = seat.getAttribute('data-seat');
+
+            if (seat.classList.contains('selected')) {
+                selectedSeats.push(seatNumber);
+            } else {
+                selectedSeats = selectedSeats.filter(seat => seat !== seatNumber);
+            }
+
+            selectedSeatsElement.textContent = selectedSeats.length > 0 ? selectedSeats.join(', ') : 'None';
+
+            bookButton.disabled = selectedSeats.length === 0;
+        });
+    });
+
+    bookButton.addEventListener('click', () => {
+        selectedSeats.forEach(seatNumber => {
+            const seat = document.querySelector(`[data-seat="${seatNumber}"]`);
+            seat.classList.add('booked');
+            seat.classList.remove('selected');
+        });
+        selectedSeats = [];
+        selectedSeatsElement.textContent = 'None';
+        bookButton.disabled = true;
+    });
+</script>
 {% endblock %}
