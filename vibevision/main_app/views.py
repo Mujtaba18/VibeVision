@@ -23,7 +23,7 @@ def about(request):
 # Add new view
 ## ----------------------------------- Movie
 def movies(request):
-    return render(request, 'movies/index.html')
+    return render(request, 'movies/movie_list.html')
 
 def movies_detail(request):
     return render(request, 'movies/movie_detail.html')
@@ -36,6 +36,8 @@ def movies_detail(request):
 
 
 ## ----------------------------------- Seat
+def seat_list(request):
+    return render(request, 'seats/seat_list.html')
 
 
 ## ----------------------------------- BookingSeat

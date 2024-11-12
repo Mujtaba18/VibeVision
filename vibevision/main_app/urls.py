@@ -29,7 +29,7 @@ urlpatterns = [
     # path('showtimes/<int:pk>/delete/', views.ShowTimeDelete.as_view(), name='showtime_delete'),
 
     ## Seat
-
+    path('seats/', views.seat_list, name='seat_list')
 
     ## BookingSeat
 

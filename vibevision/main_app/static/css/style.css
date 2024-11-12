@@ -2,6 +2,9 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f4f4f4;
 }
 
 main {
@@ -85,8 +88,8 @@ footer.page-footer {
 .backoff-moviecaed {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; 
-  align-items: center; 
+  gap: 20px;
+  align-items: center;
   margin-top: 20px;
 }
 
@@ -124,12 +127,10 @@ footer.page-footer {
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-
-
 /* Movie Detail  */
 .detail-detail {
   display: flex;
-  align-items: center; 
+  align-items: center;
   gap: 20px;
 }
 
@@ -143,9 +144,59 @@ footer.page-footer {
   flex-direction: column;
 }
 
-#detail [
-  
-]
+#detail {
+  font-size: 16px;
+  color: gray;
+  margin: 8px 0;
+}
 
+.pg {
+  text-align: center;
+  border: 1px solid;
+  width: 90px;
+  height: 45px;
+  /* border-radius: 26% 24% 24% 26% / 26% 26% 26%  26%; */
+  border-radius: 8dvb;
+  background-color: darkgray;
+  color: gray;
+}
 
-
+/* seat_list */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+.seats {
+  display: grid;
+  grid-template-columns: repeat(11, 40px);
+  gap: 10px;
+  justify-content: center;
+}
+.seat {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.seat.selected {
+  background-color: #4caf50;
+}
+.seat.booked {
+  background-color: #ff5733;
+  cursor: not-allowed;
+}
+.seat:hover {
+  background-color: #888;
+}
+.seat.selected:hover {
+  background-color: #45a049;
+}
+.info {
+  margin-top: 20px;
+}
+.info p {
+  font-size: 18px;
+}
