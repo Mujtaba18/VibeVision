@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 {% block content %}
 <h1>Showtime List</h1>
-<table>
+<table id="showtimeTable">
   <thead>
     <tr>
       <th>#</th>
@@ -12,9 +12,9 @@
       <th>Show duration</th>
 
       <th style="width: 15px;">
-        <a href="{% url 'showtime_create' %}" style="color: white; background-color: #039be5; padding: 10px; border-radius: 10px; text-align: center; display: flex; width: 40px;">
+        <!-- <a href="{% url 'showtime_create' %}" style="color: white; background-color: #039be5; padding: 10px; border-radius: 10px; text-align: center; display: flex; width: 40px;">
           <i class="material-icons">add</i>
-        </a>
+        </a> -->
       </th>
     </tr>
   </thead>
@@ -35,7 +35,8 @@
     <td>{{ showtime.movie.duration }}</td>
 
      <td>
-        <a href="{% url 'showtime_update' showtime.id %}" class="btn blue">Edit</a>
+      
+        <a href="{% url 'showtime_update' showtime.id showtime.movie.id %}" class="btn blue">Edit<a>
         <a href="{% url 'showtime_delete' showtime.id %}" class="btn red">Delete</a>
       </td>
     </tr>
@@ -46,4 +47,17 @@
     {% endfor %}
   </tbody>
 </table>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#showtimeTable').DataTable({
+      pageLength: 5, 
+      lengthMenu: [5, 10, 25, 50], 
+      
+
+    });
+  });
+</script>
 {% endblock %}

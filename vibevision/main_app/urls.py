@@ -26,7 +26,8 @@ urlpatterns = [
     ## Showtime
     path('showtimes/', views.ShowTimeList.as_view(), name='showtime_list'),
     path('showtimes/create/', views.ShowTimeCreate.as_view(), name='showtime_create'),
-    path('showtimes/<int:pk>/update/', views.ShowTimeUpdate.as_view(), name='showtime_update'),
+
+    path('showtime/<int:pk>/update/<int:movie_id>/', views.ShowTimeUpdate.as_view(), name='showtime_update'),
     path('showtimes/<int:pk>/delete/', views.ShowTimeDelete.as_view(), name='showtime_delete'),
 
     ## Seat

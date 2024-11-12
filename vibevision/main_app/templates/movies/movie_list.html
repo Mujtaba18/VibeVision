@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Movie List</h1>
-<table >
+<table  id="movieTable" >
   <thead >
     <tr>
       <th>#</th>
@@ -54,12 +54,28 @@
       <td>{{ movie.rating }}</td>
       <td>{{ movie.age_restriction }}</td>
       <td>{{ movie.status }}</td>
-      <td colspan="2">
+      <td colspan="2" style="display: flex; flex-direction: column;
+      gap: 10px; width: 100%;" >
         <a href="{% url 'movie_update' movie.id %}" class="btn blue">Edit</a> 
         <a href="{% url 'movie_delete' movie.id %}" class="btn red">Delete</a>
+        <a href="{% url 'showtime_create' %}?movie_id={{ movie.id }}" class="btn green"> Showtime</a>
+
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#movieTable').DataTable({
+      pageLength: 5, 
+      lengthMenu: [5, 10, 25, 50], 
+      
+
+    });
+  });
+</script>
 {% endblock %}
