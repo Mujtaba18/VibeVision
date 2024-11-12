@@ -111,6 +111,20 @@ class MovieDetail(DetailView):
     model = Movie
     template_name = 'movies/movie_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        showtimes = ShowTime.objects.filter(movie=self.object).order_by('show_time')
+        grouped_showtimes = {}
+        for showtime in showtimes:
+            date = showtime.show_time.date()
+            if date not in grouped_showtimes:
+                grouped_showtimes[date] = []
+            grouped_showtimes[date].append(showtime)
+        
+        context['grouped_showtimes'] = grouped_showtimes
+        return context
+
 ## ----------------------------------- Room
 
 # Room list view 

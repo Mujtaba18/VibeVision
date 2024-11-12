@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 {% block content %}
 
 <br/>
@@ -16,7 +17,7 @@
 
   <div class="movie-detail">
   <div class="pg">
-    <p>PG-13|2h07m</p>
+    <p>{{ movie.age_restriction }} | {{ movie.duration|format_duration }}</p>
   </div>
     <p id="detail">Name: {{ movie.title }}</p>
     <p id="detail">Language: {{ movie.language }}</p>
@@ -72,19 +73,29 @@
 
 
 
+<div class="showtime-dates">
+  <h3>Select a date:</h3>
+  {% for date, showtimes in grouped_showtimes.items %}
+    <button onclick="showTimes('{{ date }}')">
+      <div class="day-indetail">
+        {{ date|date:"D" }}<br/>
+        {{ date|date:"d" }}<br/>
+        {{ date|date:"M" }}
+      </div>
+    </button>
+  {% endfor %}
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+<div id="showtimes-container">
+  <h3>Available showtimes:</h3>
+  {% for date, showtimes in grouped_showtimes.items %}
+    <div id="showtimes-{{ date }}" class="showtime-list" style="display: none;">
+      {% for showtime in showtimes %}
+        <div class="time-indetail">{{ showtime.show_time|date:"h:i A" }}</div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
 
 
 
@@ -97,6 +108,15 @@
   function hideTrailer() {
     document.querySelector('.iframe-container').style.display = 'none';
     document.querySelector('.overlay').style.display = 'none';
+  }
+
+  function showTimes(date) {
+    // Hide all showtime lists
+    document.querySelectorAll('.showtime-list').forEach(function(list) {
+      list.style.display = 'none';
+    });
+    // Show the selected date's showtime list
+    document.getElementById('showtimes-' + date).style.display = 'block';
   }
 </script>
 

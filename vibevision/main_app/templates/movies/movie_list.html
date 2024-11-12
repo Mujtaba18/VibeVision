@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {% load custom_filters %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% load custom_filters %} 
+{% block content %}
 <h1>Movie List</h1>
 <div class="movie-table">
 
@@ -33,7 +36,7 @@
         </td>
         <td>
           {% if movie.movie_image %}
-          {% load static %} <img width="140px" height="90px" src={% static movie.movie_image|cut:'main_app/static/' %} />
+          <img width="140px" height="90px" src={% static movie.movie_image|cut:'main_app/static/' %} />
   
           {% else %} No Image {% endif %}
         </td>
