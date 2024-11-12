@@ -53,7 +53,7 @@ class Seat(models.Model):
     ]
     
     seat_code = models.CharField(max_length=10, unique=True)  # e.g., "A1", "B2"
-    seat_type = models.CharField(max_length=10, choices=SEAT_TYPES, default='Standard')  # VIP, Deluxe, Standard
+    seat_type = models.CharField(max_length=10, choices=SEAT_TYPES, default=SEAT_TYPES)  # VIP, Deluxe, Standard
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):

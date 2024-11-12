@@ -22,7 +22,7 @@
         </ul>
         <ul class="right">
           <li><a href="/about">About</a></li>
-
+          <li><a href="{% url 'seat_list' %}">Seats</a></li>
           {% if user.is_authenticated %}
           {% if user.role == 'admin' %}
           <li>Welcome, Admin!</li>
@@ -58,6 +58,41 @@
   <footer class="page-footer">
     <div class="right">All Rights Reserved, &copy; 2024 VibeVision &nbsp;</div>
   </footer>
-</body>
+  
+  <script>
 
+    document.querySelector(".scroll-left-top").addEventListener("click", function () {
+      const carouselContainer = document.querySelector(".top-carousel");
+      carouselContainer.scrollBy({
+        left: -220, 
+        behavior: "smooth",
+      });
+    });
+    
+    document.querySelector(".scroll-right-top").addEventListener("click", function () {
+      const carouselContainer = document.querySelector(".top-carousel");
+      carouselContainer.scrollBy({
+        left: 220,
+        behavior: "smooth",
+      });
+    });
+    
+    document.querySelector(".scroll-left-bottom").addEventListener("click", function () {
+      const carouselContainer = document.querySelector(".bottom-carousel");
+      carouselContainer.scrollBy({
+        left: -220,
+        behavior: "smooth",
+      });
+    });
+    
+    document.querySelector(".scroll-right-bottom").addEventListener("click", function () {
+      const carouselContainer = document.querySelector(".bottom-carousel");
+      carouselContainer.scrollBy({
+        left: 220,
+        behavior: "smooth",
+      });
+    });
+    
+  </script>
+</body>
 </html>

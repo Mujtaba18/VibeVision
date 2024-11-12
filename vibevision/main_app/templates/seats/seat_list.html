@@ -1,52 +1,36 @@
 {% extends 'base.html' %}
-
 {% block content %}
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-        background-color: #f4f4f4;
-    }
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    .seats {
-        display: grid;
-        grid-template-columns: repeat(11, 40px);
-        gap: 10px;
-        justify-content: center;
-    }
-    .seat {
-        width: 40px;
-        height: 40px;
-        background-color: #ccc;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    .seat.selected {
-        background-color: #4CAF50;
-    }
-    .seat.booked {
-        background-color: #FF5733;
-        cursor: not-allowed;
-    }
-    .seat:hover {
-        background-color: #888;
-    }
-    .seat.selected:hover {
-        background-color: #45a049;
-    }
-    .info {
-        margin-top: 20px;
-    }
-    .info p {
-        font-size: 18px;
-    }
-</style>
+<h1>Seat List</h1>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Seat Code</th>
+      <th>Seat Type</th>
+      <th>price</th>
+      <th style="width: 15px;"><a href="{% url 'seat_create' %}"
+          style="color: white; background-color: #039be5; padding: 10px; border-radius: 10px; text-align: center; display: flex; width: 40px;">
+          <i class="material-icons">add </i>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for seat in seat_list %}
+    <tr>
+      <td style="font-weight: 800;">
+        {{ seat.seat_code }}
+      </td>
+      <td>{{ seat.seat_type }}</td>
+      <td>{{ seat.price }}</td>
+      <td colspan="2">
+        <a href="{% url 'seat_update' seat.id %}" class="btn blue">Edit</a>
+        <a href="{% url 'seat_delete' seat.id %}" class="btn red">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 <div class="container">
     <h3>Select Your Seats</h3>
@@ -170,5 +154,4 @@
         bookButton.disabled = true;
     });
 </script>
-
 {% endblock %}

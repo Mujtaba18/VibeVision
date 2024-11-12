@@ -63,15 +63,6 @@ def profile_update(request):
 
   return render(request, 'profile/profile_edit.html', context)
 
-
-# Add new view
-## ----------------------------------- Movie
-def movies(request):
-    return render(request, 'movies/movie_list.html')
-
-def movies_detail(request):
-    return render(request, 'movies/movie_detail.html')
-
 # Movie create view
 class MovieCreate(LoginRequiredMixin,  CreateView):
     model = Movie
@@ -116,6 +107,10 @@ class MovieUpdate(UpdateView):
     fields ='__all__'
     template_name = 'movies/movie_form.html'
     success_url = '/movies/'  
+
+class MovieDetail(DetailView):
+    model = Movie
+    template_name = 'movies/movie_detail.html'
 
 ## ----------------------------------- Room
 
@@ -193,6 +188,31 @@ class ShowTimeDelete( DeleteView):
 def seat_list(request):
     return render(request, 'seats/seat_list.html')
 
+# Seat list view 
+
+class SeatList(ListView):
+    model = Seat
+    template_name = 'seats/seat_list.html'
+    
+# Seat Create View
+class SeatCreate( CreateView):
+    model = Seat
+    template_name = 'seats/seat_form.html'
+    fields = ['seat_code', 'seat_type', 'price']
+    success_url = '/seat/'  
+
+# Seat Update View
+class SeatUpdate( UpdateView):
+    model = Seat
+    template_name = 'seats/seat_form.html'
+    fields = ['seat_code', 'seat_type', 'price']
+    success_url = '/seat/'  
+
+# Seat Delete View
+class SeatDelete(DeleteView):
+    model = Seat
+    template_name = 'seats/seat_confirm_delete.html'
+    success_url = '/seat/'  
 
 ## ----------------------------------- BookingSeat
 

@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{% if object %}Edit{% else %}Add{% endif %} Seat</h1>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+<a href="{% url 'seat_list' %}">Cancel</a>
+
+
+<script>
+
+  let seat_type = document.getElementById("id_seat_type")
+
+  M.FormSelect.init(seat_type);
+</script>
+
+{% endblock %}
