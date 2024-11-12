@@ -217,4 +217,3 @@ class SeatDelete(DeleteView):
 
 
 ## ----------------------------------- Booking
-
