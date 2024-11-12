@@ -93,7 +93,6 @@ class MovieCreate(LoginRequiredMixin,  CreateView):
 class MovieList(ListView):
     model = Movie
     template_name = 'movies/movie_list.html'
-    
 
 #  movie delete view 
 class MovieDelete(DeleteView):
@@ -219,21 +218,3 @@ class SeatDelete(DeleteView):
 
 ## ----------------------------------- Booking
 
-
-
-
-
-
-
-
-
-
-
-
-# i will delete it later
-
-def detail(request):
-    return render(request, 'movies/movie_detail.html')
-
-def booking_list(request):
-    return render(request, 'booking/booking_list.html')

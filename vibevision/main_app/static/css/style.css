@@ -313,6 +313,7 @@ button .scroll-left {
 .movie-detail {
   display: flex;
   flex-direction: column;
+  text-align: left;
 }
 
 #detail {

@@ -8,7 +8,7 @@
 <div class="detail-detail">
   <div class="Detail-img">
     <img
-      src="{% static 'uploads/venom.jpg' %}"
+      src="{% static movie.movie_image|cut:'main_app/static/' %}"
       alt="Venom"
       
     />
@@ -18,11 +18,19 @@
   <div class="pg">
     <p>PG-13|2h07m</p>
   </div>
-    <p id="detail">Name: Venom</p>
-    <p id="detail">Language: English</p>
-    <p id="detail">Subtitle: Arabic</p>
-    <p id="detail">Genre: Action</p>
-    <p id="detail">Release Date: 10/11/2024</p>
+    <p id="detail">Name: {{ movie.title }}</p>
+    <p id="detail">Language: {{ movie.language }}</p>
+    <p id="detail">Subtitle: {{ movie.subtitle }}</p>
+    <p id="detail">Genre: 
+      {% if movie.genres.all %}
+      {% for genre in movie.genres.all %}
+          {{ genre.name }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+      {% else %}
+          No Genres
+      {% endif %}
+    </p>
+    <p id="detail">Release Date: {{ movie.release_date }}</p>
 
     <div class="tr" onclick="showTrailer()">Trailer</div>
     <div class="overlay" onclick="hideTrailer()"></div>
