@@ -1,72 +1,75 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Movie List</h1>
-<table >
-  <thead >
-    <tr>
-      <th>#</th>
-      <th>Movie Image</th>
-      <th>Title</th>
-      <th>Genres</th>
-      <th>Subtitle</th>
-      <th>Duration</th>
-      <th>Release Date</th>
-      <th>Language</th>
-      <th>Trailer URL</th>
-      <th>Rating</th>
-      <th>Age Restriction</th>
-      <th>Status</th>
-      <th>Actions</th>
-      <th colspan="2"><a href="{% url 'movie_create' %}" style="color: white; background-color: #039be5; padding: 10px; border-radius: 10px; text-align: center; display: flex;">  <i class="material-icons">add   </i>
-       </a>
-      </th>
+<div class="movie-table">
 
-      
-    </tr>
-  </thead>
-  <tbody>
-    {% for movie in movie_list %}
-    <tr>
-      <td style="font-weight: 800;">
-        {{ forloop.counter }}
-      </td>
-      <td>
-        {% if movie.movie_image %}
-        {% load static %} <img width="140px" height="90px" src={% static movie.movie_image|cut:'main_app/static/' %} />
-
-        {% else %} No Image {% endif %}
-      </td>
-      <td>{{ movie.title }}</td>
-      <td>
-        {% if movie.genres.all %}
-            {% for genre in movie.genres.all %}
-                {{ genre.name }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        {% else %}
-            No Genres
-        {% endif %}
-      </td>
-       <td>{{ movie.subtitle }}</td>
-      <td>{{ movie.duration }}</td>
-      <td>{{ movie.release_date }}</td>
-      <td>{{ movie.language }}</td>
-      <td><a href="{{ movie.trailer_url }}">Watch Trailer</a></td>
-
-      <td>{{ movie.rating }}</td>
-      <td>{{ movie.age_restriction }}</td>
-      <td>{{ movie.status }}</td>
-      <td colspan="2">
-        <a href="{% url 'movie_update' movie.id %}" class="btn blue">Edit</a> 
-        <a href="{% url 'movie_delete' movie.id %}" class="btn red">Delete</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Movie Image</th>
+        <th>Title</th>
+        <th>Genres</th>
+        <th>Subtitle</th>
+        <th>Duration</th>
+        <th>Release Date</th>
+        <th>Language</th>
+        <th>Trailer URL</th>
+        <th>Rating</th>
+        <th>Age Restriction</th>
+        <th>Status</th>
+        <th>Actions</th>
+        <th colspan="2"><a href="{% url 'movie_create' %}" style="color: white; background-color: #039be5; padding: 10px; border-radius: 10px; text-align: center; display: flex;">  <i class="material-icons">add   </i>
+         </a>
+        </th>
+  
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for movie in movie_list %}
+      <tr>
+        <td style="font-weight: 800;">
+          {{ forloop.counter }}
+        </td>
+        <td>
+          {% if movie.movie_image %}
+          {% load static %} <img width="140px" height="90px" src={% static movie.movie_image|cut:'main_app/static/' %} />
+  
+          {% else %} No Image {% endif %}
+        </td>
+        <td>{{ movie.title }}</td>
+        <td>
+          {% if movie.genres.all %}
+              {% for genre in movie.genres.all %}
+                  {{ genre.name }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+          {% else %}
+              No Genres
+          {% endif %}
+        </td>
+         <td>{{ movie.subtitle }}</td>
+        <td>{{ movie.duration }}</td>
+        <td>{{ movie.release_date }}</td>
+        <td>{{ movie.language }}</td>
+        <td><a href="{{ movie.trailer_url }}">Watch Trailer</a></td>
+  
+        <td>{{ movie.rating }}</td>
+        <td>{{ movie.age_restriction }}</td>
+        <td>{{ movie.status }}</td>
+        <td colspan="2">
+          <a href="{% url 'movie_update' movie.id %}" class="btn blue">Edit</a> 
+          <a href="{% url 'movie_delete' movie.id %}" class="btn red">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 <h3>Showing Now</h3>
 
 <!-- Movie Container -->
-<div class="backoff-moviecaed">
+<div class="backoff-moviecard">
   <!-- Individual Movie Card -->
   <div class="movie-card">
     <!-- Movie Image -->
@@ -76,7 +79,7 @@
         style="width: 207px; height: 276; object-fit: cover;"
     />
     <!-- Movie Name (Hidden by Default) -->
-    <div class="movie-hov-ditail">
+    <div class="movie-hover-detail">
       Venom <br>
       English | PG-13 | 2h13m
     </div>
