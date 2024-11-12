@@ -51,5 +51,6 @@ urlpatterns = [
 
     # i will delete it later
     path('ditail/', views.detail, name='detail'),
+    path('booking/list', views.booking_list, name='booking_list'),
 
 ]

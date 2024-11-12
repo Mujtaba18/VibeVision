@@ -234,3 +234,6 @@ class SeatDelete(DeleteView):
 
 def detail(request):
     return render(request, 'movies/movie_detail.html')
+
+def booking_list(request):
+    return render(request, 'booking/booking_list.html')
