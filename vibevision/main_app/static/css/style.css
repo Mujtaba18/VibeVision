@@ -2,8 +2,11 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+
+}
+h1{
+  text-align: center;
+
 }
 
 main {
@@ -199,3 +202,157 @@ footer.page-footer {
 .info p {
   font-size: 18px;
 }
+/* Table css  */
+/* Table Styling   start here ------------------------------*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header */
+th {
+  background-color: #444744; 
+  color: white; 
+  padding: 12px 15px;
+  text-align: left;
+}
+
+/* Table Body */
+td {
+  border: 1px solid #dddddd; 
+  padding: 12px 15px;
+}
+
+/* Zebra Striping */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Hover Effect */
+tr:hover {
+  background-color: #f1f1f1; 
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  table {
+      font-size: 14px; 
+  }
+  
+  th, td {
+      padding: 10px; 
+  }
+}
+
+/* END here table*/
+
+
+/*   Form Styling   start here ------------------------------*/
+form {
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+/* Form Title */
+form h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+  font-size: 15px;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 17px;
+  transition: border-color 0.3s;
+}
+
+/* Input Focus Effect */
+input:focus,
+textarea:focus {
+  border-color: #039be5; /* Green border on focus */
+  outline: none;
+}
+
+/* Submit Button */
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #039be5; /* Green background */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Button Hover Effect */
+button[type="submit"]:hover {
+  background-color: #034be5bd; /* Darker green on hover */
+}
+
+/* Error Messages */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.nostyle {
+  all: unset;
+}
+
+.logout-link {
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent !important;
+  border: none;
+  text-align: left;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .form-container {
+      padding: 15px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  textarea {
+      font-size: 14px; 
+  }
+  
+  button[type="submit"] {
+      font-size: 14px; /* Smaller button text */
+  }
+}
+
+
+
+/*  END here  */

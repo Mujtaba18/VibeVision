@@ -2,84 +2,62 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>VibeVision</title>
-   
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-   
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/style.css' %}"
-    />
-  </head>
-  <body>
 
-    <header class="navbar-fixed">
-      <nav>
-        <div class="nav-wrapper">
-          <ul>
-            <li>
-              <a href="/" class="left brand-logo">&nbsp;&nbsp;VibeVision</a>
-            </li>
-          </ul>
-          <ul class="right">
-            <li><a href="/about">About</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>VibeVision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
 
-    <main class="container">{% block content %} {% endblock %}</main>
+<body>
+  <header class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <ul>
+          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;VibeVision</a></li>
+        </ul>
+        <ul class="right">
+          <li><a href="/about">About</a></li>
 
-    <footer class="page-footer">
-      <div class="right">
-        All Rights Reserved, &copy; 2024 VibeVision &nbsp;
+          {% if user.is_authenticated %}
+          {% if user.role == 'admin' %}
+          <li>Welcome, Admin!</li>
+          <li><a href="/showtimes">Show Time</a></li>
+          <li><a href="/movies">Movies</a></li>
+          <li><a href="/rooms">Rooms</a></li>
+          <li><a href="/about">About</a></li>
+          {% else %}
+          <li>Welcome, User!</li>
+          {% endif %}
+          <li><a href="{% url 'profile' %}">Profile</a></li>
+          <li>
+          <li>
+            <a>
+              <form class="nostyle" action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button class="logout-link" type="submit">Log Out</button>
+              </form>
+            </a>
+          </li>
+          {% else %}
+          <li><a href="{% url 'signup' %}">Sign up</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+          {% endif %}
+        </ul>
       </div>
-    </footer>
+    </nav>
+  </header>
+  <main class="container">
+    {% block content %}
+    {% endblock %}
+  </main>
+  <footer class="page-footer">
+    <div class="right">All Rights Reserved, &copy; 2024 VibeVision &nbsp;</div>
+  </footer>
+</body>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <script>
-
-document.querySelector(".scroll-left-top").addEventListener("click", function () {
-  const carouselContainer = document.querySelector(".top-carousel");
-  carouselContainer.scrollBy({
-    left: -220, 
-    behavior: "smooth",
-  });
-});
-
-document.querySelector(".scroll-right-top").addEventListener("click", function () {
-  const carouselContainer = document.querySelector(".top-carousel");
-  carouselContainer.scrollBy({
-    left: 220,
-    behavior: "smooth",
-  });
-});
-
-document.querySelector(".scroll-left-bottom").addEventListener("click", function () {
-  const carouselContainer = document.querySelector(".bottom-carousel");
-  carouselContainer.scrollBy({
-    left: -220,
-    behavior: "smooth",
-  });
-});
-
-document.querySelector(".scroll-right-bottom").addEventListener("click", function () {
-  const carouselContainer = document.querySelector(".bottom-carousel");
-  carouselContainer.scrollBy({
-    left: 220,
-    behavior: "smooth",
-  });
-});
-
-    </script>
-  </body>
 </html>

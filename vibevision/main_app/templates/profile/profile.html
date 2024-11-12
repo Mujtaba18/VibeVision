@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>User Profile</h2>
+
+<div class="profile">
+  <p>
+    {% if user.image %}
+  <div>
+    {% load static %}
+    <img alt="Profile Image" width="200" height="200" src={% static user.image|cut:'main_app/static/' %} />
+  </div>
+  {% else %}
+  <p>No profile image</p>
+  {% endif %}
+  </p>
+  <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3>
+  <p>Email: {{ user.email }}</p>
+  <p>Role: {{ user.role }}</p>
+  <a href="{% url 'profile_update'  %}">Edit</a>
+</div>
+
+{% endblock %}
