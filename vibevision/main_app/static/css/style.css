@@ -304,6 +304,7 @@ button[type="submit"]:hover {
 .movie-detail {
   display: flex;
   flex-direction: column;
+  text-align: left;
 }
 
 #detail {
