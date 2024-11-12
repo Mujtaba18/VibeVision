@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load custom_filters %} {% block content %}
 <h1>Movie List</h1>
 <div class="movie-table">
 
@@ -71,18 +71,60 @@
 <!-- Movie Container -->
 <div class="backoff-moviecard">
   <!-- Individual Movie Card -->
-  <div class="movie-card">
-    <!-- Movie Image -->
-    <img
-        src="{% static 'uploads/venom.jpg' %}"
-        alt="Venom"
-        style="width: 207px; height: 276; object-fit: cover;"
-    />
-    <!-- Movie Name (Hidden by Default) -->
-    <div class="movie-hover-detail">
-      Venom <br>
-      English | PG-13 | 2h13m
-    </div>
-  </div>
+  {% if movie_list|has_now_showing %}
+    {% for movie in movie_list %}
+        {% if movie.status == "Now Showing" %}
+        <div class="movie-card">
+          <a href="{% url 'movie_detail' movie.id %}">
+            <!-- Movie Image -->
+            <img
+                src="{% static movie.movie_image|cut:'main_app/static/' %}"
+                alt="{{ movie.title }}"
+                style="width: 207px; height: 276px; object-fit: cover;"
+            />
+            <!-- Movie Name (Hidden by Default) -->
+            <div class="movie-hover-detail">
+                {{ movie.title }} <br>
+                {{ movie.language }} | {{ movie.age_restriction }} | {{ movie.duration|format_duration }}
+            </div>
+          </a>
+        </div>
+    {% endif %}
+  {% endfor %}
+{% else %}
+  <p>Sorry, No Currently Showing Movies :(</p>
+{% endif %}
+  
+</div>
+
+<h3>Coming Soon</h3>
+
+<!-- Movie Container -->
+<div class="backoff-moviecard">
+  <!-- Individual Movie Card -->
+  {% if movie_list|has_coming_soon %}
+    {% for movie in movie_list %}
+        {% if movie.status == "Coming Soon" %}
+        <div class="movie-card">
+          <a href="{% url 'movie_detail' movie.id %}">
+            <!-- Movie Image -->
+            <img
+                src="{% static movie.movie_image|cut:'main_app/static/' %}"
+                alt="{{ movie.title }}"
+                style="width: 207px; height: 276px; object-fit: cover;"
+            />
+            <!-- Movie Name (Hidden by Default) -->
+            <div class="movie-hover-detail">
+                {{ movie.title }} <br>
+                {{ movie.language }} | {{ movie.age_restriction }} | {{ movie.duration|format_duration }}
+            </div>
+          </a>
+        </div>
+        {% endif %}
+    {% endfor %}
+  {% else %}
+  <p>Sorry, No Coming Soon Movies :(</p>
+  {% endif %}
+  
 </div>
 {% endblock %}
