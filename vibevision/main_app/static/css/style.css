@@ -241,7 +241,7 @@ button[type="submit"]:hover {
 }
 
 /* Index.html */
-.backoff-moviecaed {
+.backoff-moviecard {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -249,7 +249,7 @@ button[type="submit"]:hover {
   margin-top: 20px;
 }
 
-.movie-hov-ditail {
+.movie-hover-detail {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -263,7 +263,7 @@ button[type="submit"]:hover {
   z-index: 10;
 }
 
-.movie-card:hover .movie-hov-ditail {
+.movie-card:hover .movie-hover-detail {
   opacity: 1;
 }
 
