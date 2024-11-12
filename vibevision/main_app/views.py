@@ -108,6 +108,10 @@ class MovieUpdate(UpdateView):
     template_name = 'movies/movie_form.html'
     success_url = '/movies/'  
 
+class MovieDetail(DetailView):
+    model = Movie
+    template_name = 'movies/movie_detail.html'
+
 ## ----------------------------------- Room
 
 # Room list view 
