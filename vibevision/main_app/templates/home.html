@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+main {
+  all: unset;
+}
+</style>
+<header>
 
+</header>
 <div class="scrolling-div">
   <h3>Now Showing</h3>
   <div class="carousel-container top-carousel">
@@ -24,34 +31,28 @@
         style="width: 200px; height: 250px"
     /></a>
   </div>
-  <button class="scroll-button scroll-left-top">&#8592;</button>
-  <button class="scroll-button scroll-right-top">&#8594;</button>
+  <button class="scroll-button scroll-left">&#8592;</button>
+  <button class="scroll-button scroll-right">&#8594;</button>
 </div>
 
-<div class="scrolling-div">
-  <h3>Coming Soon</h3>
-  <div class="carousel-container bottom-carousel">
-    <a class="carousel-item" href="#one!"
-      ><img
-        src="{% static 'uploads/venom.jpg' %}"
-        alt="Venom"
-        style="width: 200px; height: 250px"
-    /></a>
-    <a class="carousel-item" href="#two!"
-      ><img
-        src="{% static 'uploads/the_wild_robot.jpg' %}"
-        alt="Robot"
-        style="width: 200px; height: 250px"
-    /></a>
-    <a class="carousel-item" href="#three!"
-      ><img
-        src="{% static 'uploads/panda_plan.jpg' %}"
-        alt="Panda"
-        style="width: 200px; height: 250px"
-    /></a>
+<section class="now-showing">
+  <div class="scrolling-div">
+    <h3>Now Showing</h3>
+    <div class="carousel-container">
+
+      {% for showtime in showtimesNow %}
+      <div class="carousel-item">
+          <a href="#{{ showtime.movie.id }}">
+              <img src="{{ showtime.movie.image_url }}" alt="{{ showtime.movie.title }}">
+          </a>
+      </div>
+  {% empty %}
+      <div class="carousel-item">No movies currently showing.</div>
+  {% endfor %}
+     
+    </div>
+    <button class="scroll-button scroll-left">&#8592;</button>
+    <button class="scroll-button scroll-right">&#8594;</button>
   </div>
-  <button class="scroll-button scroll-left-bottom">&#8592;</button>
-  <button class="scroll-button scroll-right-bottom">&#8594;</button>
-</div>
-
+</section>
 {% endblock %}

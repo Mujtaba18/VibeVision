@@ -17,47 +17,45 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-  <header class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper">
-        <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;VibeVision</a></li>
-        </ul>
-        <ul class="right">
-          <li><a href="/about">About</a></li>
-          <li><a href="{% url 'seat_list' %}">Seats</a></li>
-          {% if user.is_authenticated %}
-          {% if user.role == 'admin' %}
-          <li>Welcome, Admin!</li>
-          <li><a href="/showtimes">Show Time</a></li>
-          <li><a href="/movies">Movies</a></li>
-          <li><a href="/rooms">Rooms</a></li>
-          <li><a href="/about">About</a></li>
-          {% else %}
-          <li>Welcome, User!</li>
-          {% endif %}
-          <li><a href="{% url 'profile' %}">Profile</a></li>
-          <li>
-          <li>
-            <a>
-              <form class="nostyle" action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button class="logout-link" type="submit">Log Out</button>
-              </form>
-            </a>
-          </li>
-          {% else %}
-          <li><a href="{% url 'signup' %}">Sign up</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          {% endif %}
-        </ul>
-      </div>
-    </nav>
-  </header>
+  <nav>
+    <div class="logo">
+      <a href="/">
+        <h1>VibeVision</h1>
+      </a>
+    </div>
+    <div class="links">
+      <ul>
+        {% if user.is_authenticated %}
+        {% if user.role == 'admin' %}
+        <li>Welcome, Admin!</li>
+        <li><a href="/showtimes">Show Time</a></li>
+        <li><a href="/movies">Movies</a></li>
+        <li><a href="/rooms">Rooms</a></li>
+        <li><a href="{% url 'seat_list' %}">Seats</a></li>
+        <li><a href="/about">About</a></li>
+        {% else %}
+        <li>Welcome, User!</li>
+        <li><a href="/about">About</a></li>
+        {% endif %}
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li>
+      </ul>
+    </div>
+    <div class="login-sec">
+      <form class="nostyle" action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button class="log" type="submit">Log Out</button>
+      </form>
+      {% else %}
+      <a class="log" href="{% url 'signup' %}">Sign up</a>
+      <a class="log" href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </div>
+  </nav>
   <main class="container">
     {% block content %}
     {% endblock %}
@@ -68,37 +66,54 @@
   
   <script>
 
-    document.querySelector(".scroll-left-top").addEventListener("click", function () {
-      const carouselContainer = document.querySelector(".top-carousel");
-      carouselContainer.scrollBy({
-        left: -220, 
-        behavior: "smooth",
-      });
-    });
-    
-    document.querySelector(".scroll-right-top").addEventListener("click", function () {
-      const carouselContainer = document.querySelector(".top-carousel");
-      carouselContainer.scrollBy({
-        left: 220,
-        behavior: "smooth",
-      });
-    });
-    
-    document.querySelector(".scroll-left-bottom").addEventListener("click", function () {
-      const carouselContainer = document.querySelector(".bottom-carousel");
+document.querySelectorAll(".scroll-left").forEach(button => {
+    button.addEventListener("click", function () {
+      const carouselContainer = button.closest('.scrolling-div').querySelector('.carousel-container');
       carouselContainer.scrollBy({
         left: -220,
         behavior: "smooth",
       });
     });
-    
-    document.querySelector(".scroll-right-bottom").addEventListener("click", function () {
-      const carouselContainer = document.querySelector(".bottom-carousel");
+  });
+  
+  document.querySelectorAll(".scroll-right").forEach(button => {
+    button.addEventListener("click", function () {
+      const carouselContainer = button.closest('.scrolling-div').querySelector('.carousel-container');
       carouselContainer.scrollBy({
         left: 220,
         behavior: "smooth",
       });
     });
+  });
+      document.addEventListener("DOMContentLoaded", function () {
+        const text = "Welcome to our cinema";
+        const h1 = document.querySelector(".home-container h1");
+        let index = 0;
+
+        function type() {
+          if (index < text.length) {
+            h1.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, 70);
+          }
+        }
+
+        type();
+
+        // Search functionality
+        const searchBtn = document.getElementById('search-btn');
+        const searchInput = document.getElementById('search-div');
+
+        searchBtn.addEventListener('click', function () {
+          if (searchInput.style.display === "none" || searchInput.style.display === "") {
+            searchInput.style.display = "block";
+ 
+
+          } else {
+            searchInput.style.display = "none";
+          }
+        });
+      });
     
   </script>
 </body>

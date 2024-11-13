@@ -16,7 +16,8 @@ from .forms import UserProfileForm
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+    showtimes_now = ShowTime.objects.filter(movie__status='Now Showing')  
+    return render(request, 'home.html', {'showtimesNow': showtimes_now})
 
 def about(request):
     # return HttpResponse('<h1>Hello Cat About</h1>')
