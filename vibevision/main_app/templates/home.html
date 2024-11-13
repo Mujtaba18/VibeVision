@@ -1,54 +1,79 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %} 
 {% block content %}
 <style>
 main {
-  all: unset;
+  all: unset !important;
 }
 </style>
 <header>
 
 </header>
-<div class="scrolling-div">
-  <h3>Now Showing</h3>
-  <div class="carousel-container top-carousel">
-    <a class="carousel-item" href="#one!"
-      ><img
-        src="{% static 'uploads/venom.jpg' %}"
-        alt="Venom"
-        style="width: 200px; height: 250px"
-    /></a>
-    <a class="carousel-item" href="#two!"
-      ><img
-        src="{% static 'uploads/the_wild_robot.jpg' %}"
-        alt="Robot"
-        style="width: 200px; height: 250px"
-    /></a>
-    <a class="carousel-item" href="#three!"
-      ><img
-        src="{% static 'uploads/panda_plan.jpg' %}"
-        alt="Panda"
-        style="width: 200px; height: 250px"
-    /></a>
+<section class="coming-soon">
+  <div class="scrolling-div">
+    <h3>Now Showing</h3>
+    <div class="carousel-container top-carousel">
+      {% if movies|has_now_showing %}
+        {% for movie in movies %}
+            {% if movie.status == "Now Showing" %}
+            <div class="carousel-item">
+              <div class="movie-card">
+                <a href="{% url 'movie_detail' movie.id %}">
+                  <!-- Movie Image -->
+                  <img
+                      src="{% static movie.movie_image|cut:'main_app/static/' %}"
+                      alt="{{ movie.title }}"
+                      style="width: 207px; height: 276px; object-fit: cover;"
+                  />
+                  <!-- Movie Name (Hidden by Default) -->
+                  <div class="movie-hover-detail">
+                      {{ movie.title }} <br>
+                      {{ movie.language }} | {{ movie.age_restriction }} | {{ movie.duration|format_duration }}
+                  </div>
+                </a>
+              </div>
+            </div>
+        {% endif %}
+      {% endfor %}
+      {% else %}
+        <p class="nomovies">Sorry, No Currently Showing Movies :(</p>
+      {% endif %}
+    </div>
+    <button class="scroll-button scroll-left">&#8592;</button>
+    <button class="scroll-button scroll-right">&#8594;</button>
   </div>
-  <button class="scroll-button scroll-left">&#8592;</button>
-  <button class="scroll-button scroll-right">&#8594;</button>
-</div>
+</section>
 
 <section class="now-showing">
   <div class="scrolling-div">
-    <h3>Now Showing</h3>
+    <h3>Coming Soon</h3>
     <div class="carousel-container">
-
-      {% for showtime in showtimesNow %}
-      <div class="carousel-item">
-          <a href="#{{ showtime.movie.id }}">
-              <img src="{{ showtime.movie.image_url }}" alt="{{ showtime.movie.title }}">
-          </a>
-      </div>
-  {% empty %}
-      <div class="carousel-item">No movies currently showing.</div>
-  {% endfor %}
+      {% if movies|has_coming_soon %}
+      {% for movie in movies %}
+          {% if movie.status == "Coming Soon" %}
+          <div class="carousel-item">
+            <div class="movie-card">
+              <a href="{% url 'movie_detail' movie.id %}">
+                <!-- Movie Image -->
+                <img
+                    src="{% static movie.movie_image|cut:'main_app/static/' %}"
+                    alt="{{ movie.title }}"
+                    style="width: 207px; height: 276px; object-fit: cover;"
+                />
+                <!-- Movie Name (Hidden by Default) -->
+                <div class="movie-hover-detail">
+                    {{ movie.title }} <br>
+                    {{ movie.language }} | {{ movie.age_restriction }} | {{ movie.duration|format_duration }}
+                </div>
+              </a>
+            </div>
+          </div>
+          {% endif %}
+      {% endfor %}
+      {% else %}
+      <p class="nomovies">Sorry, No Coming Soon Movies :(</p>
+      {% endif %}
      
     </div>
     <button class="scroll-button scroll-left">&#8592;</button>

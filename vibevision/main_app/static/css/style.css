@@ -13,11 +13,15 @@
 }
 
 body {
-  /* display: flex;
+  display: flex;
   min-height: 100vh;
-  flex-direction: column; */
+  flex-direction: column;
   background-color: #120f0fdb;
   width: 100vw;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 header {
@@ -31,7 +35,7 @@ header {
 
 nav {
   all: unset;
-  padding: 2rem 5rem;
+  padding: 1.2rem 2rem;
   display: flex;
   justify-content: space-between;
   color: var(--back-up-color--);
@@ -40,6 +44,7 @@ nav {
 
 .logo h1 {
   margin: 0;
+  margin-right: 30px;
   font-size: 35px;
   color: #df927d;
   letter-spacing: 5px;
@@ -131,8 +136,10 @@ button:hover, .log:hover {
 } */
 
 footer.page-footer {
-  padding-top: 0;
   text-align: right;
+  border-top: 1px solid white;
+  background-color: transparent !important;
+  padding: 10px;
 }
 
 /* Table css  */
@@ -283,7 +290,7 @@ textarea:focus {
   display: flex;
   overflow-x: scroll;
   gap: 15px;
-  padding: 10px 0;
+  padding: 10px 40px;
   scroll-behavior: smooth;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -296,8 +303,8 @@ textarea:focus {
 
 .carousel-item {
   flex-shrink: 0;
-  width: 200px;
-  height: 250px;
+  width: 210px;
+  height: 300px;
   object-fit: cover;
 }
 
@@ -327,10 +334,11 @@ textarea:focus {
   position: relative; 
 }
 
-.now-showing{
+.now-showing, .coming-soon {
   margin: 50px 0;
+  text-align: center;
 }
-.now-showing h3{
+.now-showing h3, .coming-soon h3 {
   color:  var(--back-up-color--)
 }
 
@@ -381,13 +389,25 @@ textarea:focus {
 
 .movie-card {
   position: relative;
-  border: 1px solid #ddd;
+  border: 1px solid #000;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 220px;
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #000;
+}
+
+.movie-card img {
+  margin-top: 6px !important;
+  border-radius: 4px;
+}
+
+.nomovies {
+  color: #fff;
+  font-size: 14px;
+  margin: 10px;
 }
 
 /* Movie Detail  */
@@ -588,3 +608,27 @@ textarea:focus {
    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /
  }
  /* end  */
+
+.tab-container {
+  display: flex;
+  /* border-bottom: 2px solid #ccc; */
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+.tab-button {
+  cursor: pointer;
+  border: none;
+  margin-right: 30px;
+  outline: none;
+}
+.tab-button.active {
+  border-bottom: 2px solid var(--text-color--);
+}
+.tab-content {
+  display: none;
+  margin-top: 20px;
+}
+.tab-content.active {
+  display: block;
+}

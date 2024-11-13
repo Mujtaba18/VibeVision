@@ -17,7 +17,8 @@ from .forms import UserProfileForm
 
 def home(request):
     showtimes_now = ShowTime.objects.filter(movie__status='Now Showing')  
-    return render(request, 'home.html', {'showtimesNow': showtimes_now})
+    movies = Movie.objects.all()
+    return render(request, 'home.html', {'showtimesNow': showtimes_now, 'movies': movies})
 
 def about(request):
     # return HttpResponse('<h1>Hello Cat About</h1>')
