@@ -3,8 +3,8 @@
 <form method="post">
   {% csrf_token %} {{ form.as_p }}
   <button type="submit">Save</button>
+  <a class="cancel" href="{% url 'seat_list' %}">Cancel</a>
 </form>
-<a href="{% url 'seat_list' %}">Cancel</a>
 
 
 <script>

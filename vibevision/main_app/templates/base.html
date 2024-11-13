@@ -46,6 +46,11 @@
         <li><a href="/about">About</a></li>
         {% else %}
         <li>Welcome, User!</li>
+        <form class="search" method="GET" action="{% url 'showtime_search' %}">
+          <input type="text" name="search" placeholder=" Search for a movie..." value="{{ query }}">
+          <button type="submit">Search</button>
+        </form>
+        <li><a href="/movies">Movies</a></li>
         <li><a href="/about">About</a></li>
         {% endif %}
         <li><a href="{% url 'profile' %}">Profile</a></li>
@@ -93,7 +98,7 @@ document.querySelectorAll(".scroll-left").forEach(button => {
     });
   });
       document.addEventListener("DOMContentLoaded", function () {
-        const text = "Welcome to our cinema";
+        const text = "Welcome To Our Cinema <3";
         const h1 = document.querySelector(".home-container h1");
         let index = 0;
 

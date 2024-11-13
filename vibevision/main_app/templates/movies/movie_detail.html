@@ -51,30 +51,7 @@
 
 <br/>
 <hr class="hr-color">
-
-<div class="day-indetail">
-  TUE<br/>
-  12<br/>
-  NOV
-</div>
-
-<hr class="hr-color">
-
-<div>
-<div class="time-indetail">
-  05:10 PM
-</div>
-
-<div class="time-indetail">
-  05:40 PM
-</div>
-
-</div>
-
-
-
 <div class="showtime-dates">
-  <h3>Select a date:</h3>
   {% for date, showtimes in grouped_showtimes.items %}
     <button onclick="showTimes('{{ date }}')">
       <div class="day-indetail">
@@ -85,9 +62,8 @@
     </button>
   {% endfor %}
 </div>
-
+<hr class="hr-color">
 <div id="showtimes-container">
-  <h3>Available showtimes:</h3>
   {% for date, showtimes in grouped_showtimes.items %}
     <div id="showtimes-{{ date }}" class="showtime-list" style="display: none;">
       {% for showtime in showtimes %}
