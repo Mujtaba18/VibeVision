@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Movie, Room, ShowTime, Seat, BookingSeat, Booking, User
@@ -231,3 +231,27 @@ class SeatDelete(DeleteView):
 
 
 ## ----------------------------------- Booking
+class BookingCreateView(CreateView):
+    model = Booking
+    fields = ['seats']
+    template_name = 'bookings/booking_form.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        showtime_id = self.kwargs['showtime_id']
+        showtime = ShowTime.objects.get(id=showtime_id)
+        form.instance.movie = showtime.movie
+        form.instance.room = showtime.room
+        form.instance.showtime = showtime
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        showtime_id = self.kwargs['showtime_id']
+        showtime = ShowTime.objects.get(id=showtime_id)
+        context['movie'] = showtime.movie
+        context['showtime'] = showtime
+        return context
+    
+    def get_success_url(self):
+        return reverse('movie_detail', kwargs={'pk': self.object.movie.id})

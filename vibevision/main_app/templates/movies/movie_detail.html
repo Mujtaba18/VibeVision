@@ -38,7 +38,7 @@
     
     <div class="iframe-container">
       <iframe 
-        src="https://www.youtube.com/embed/__2bjWbetsA?autoplay=1" 
+        src="{{ movie.trailer_url }}?autoplay=1" 
         allowfullscreen>
       </iframe>
     </div>
@@ -91,7 +91,10 @@
   {% for date, showtimes in grouped_showtimes.items %}
     <div id="showtimes-{{ date }}" class="showtime-list" style="display: none;">
       {% for showtime in showtimes %}
-        <div class="time-indetail">{{ showtime.show_time|date:"h:i A" }}</div>
+        <div class="time-indetail">
+          {{ showtime.show_time|date:"h:i A" }}
+          <a href="{% url 'booking_create' showtime.id %}" class="btn btn-primary">Book</a>
+        </div>
       {% endfor %}
     </div>
   {% endfor %}

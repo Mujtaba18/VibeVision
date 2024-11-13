@@ -40,5 +40,5 @@ urlpatterns = [
 
 
     ## Booking
-
+    path('booking/create/<int:showtime_id>/', views.BookingCreateView.as_view(), name='booking_create'),
 ]
