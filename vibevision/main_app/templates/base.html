@@ -27,7 +27,14 @@
         <h1>VibeVision</h1>
       </a>
     </div>
-    <div class="links">
+    <div class="hamburger" onclick="toggleMenu()">
+      <div class="cc" onclick="myFunction(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+    </div>
+    <div class="links" id="nav-links">
       <ul>
         {% if user.is_authenticated %}
         {% if user.role == 'admin' %}
@@ -115,6 +122,20 @@ document.querySelectorAll(".scroll-left").forEach(button => {
         });
       });
     
+      document.addEventListener("DOMContentLoaded", function () {
+        // Select the hamburger and nav-links elements
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        // Toggle the nav-links visibility on hamburger click
+        hamburger.addEventListener('click', function () {
+          navLinks.classList.toggle('active'); // Add/remove the 'active' class
+        });
+      });
+
+      function myFunction(x) {
+        x.classList.toggle("change");
+      }
   </script>
 </body>
 </html>
