@@ -62,39 +62,25 @@
   </footer>
   
   <script>
-
-    document.querySelector(".scroll-left-top").addEventListener("click", function () {
-      const carouselContainer = document.querySelector(".top-carousel");
-      carouselContainer.scrollBy({
-        left: -220, 
-        behavior: "smooth",
+    document.querySelectorAll(".scroll-left").forEach(button => {
+      button.addEventListener("click", function () {
+        const carouselContainer = button.closest('.scrolling-div').querySelector('.carousel-container');
+        carouselContainer.scrollBy({
+          left: -220,
+          behavior: "smooth",
+        });
       });
     });
     
-    document.querySelector(".scroll-right-top").addEventListener("click", function () {
-      const carouselContainer = document.querySelector(".top-carousel");
-      carouselContainer.scrollBy({
-        left: 220,
-        behavior: "smooth",
+    document.querySelectorAll(".scroll-right").forEach(button => {
+      button.addEventListener("click", function () {
+        const carouselContainer = button.closest('.scrolling-div').querySelector('.carousel-container');
+        carouselContainer.scrollBy({
+          left: 220,
+          behavior: "smooth",
+        });
       });
     });
-    
-    document.querySelector(".scroll-left-bottom").addEventListener("click", function () {
-      const carouselContainer = document.querySelector(".bottom-carousel");
-      carouselContainer.scrollBy({
-        left: -220,
-        behavior: "smooth",
-      });
-    });
-    
-    document.querySelector(".scroll-right-bottom").addEventListener("click", function () {
-      const carouselContainer = document.querySelector(".bottom-carousel");
-      carouselContainer.scrollBy({
-        left: 220,
-        behavior: "smooth",
-      });
-    });
-    
   </script>
 </body>
 </html>

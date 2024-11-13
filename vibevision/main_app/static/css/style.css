@@ -2,6 +2,7 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background-color: #333;
 }
 h1 {
   text-align: center;
@@ -174,53 +175,7 @@ button[type="submit"]:hover {
 }
 
 /*  END here  */
-.carousel-container {
-  display: flex;
-  overflow-x: scroll;
-  gap: 15px;
-  padding: 10px 0;
-  scroll-behavior: smooth;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  position: relative; /* Set up relative positioning */
-}
 
-.carousel-container::-webkit-scrollbar {
-  display: none;
-}
-
-.carousel-item {
-  flex-shrink: 0;
-  width: 200px;
-  height: 250px;
-  object-fit: cover;
-}
-
-.scroll-button {
-  position: absolute;
-  top: 60%; 
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  z-index: 1000;
-}
-
-button .scroll-left {
-  left: 0px; 
-}
-
-.scroll-right {
-  right: 0px; 
-}
-
-.scrolling-div {
-  max-width: 80%;
-  margin: 0 auto;
-  position: relative; 
-}
 
 /* .scroll-left-top {
   left: 10px;
@@ -469,4 +424,71 @@ button .scroll-left {
 }
 .info p {
   font-size: 18px;
+}
+
+
+/* Book_list */
+
+.your-bookinglist {
+  background-color: #039be5;
+  width: 180px;
+  padding: 16px;
+  border: 1px solid;
+  border-radius: 1.5dvh;
+}
+
+.your-bookinglist p {
+  margin: 8px 0;
+}
+
+
+
+/* Home Page */
+
+.carousel-container {
+  display: flex;
+  overflow-x: scroll;
+  gap: 15px;
+  padding: 10px 0;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  position: relative; /* Set up relative positioning */
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item {
+  flex-shrink: 0;
+  width: 200px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.scroll-button {
+  position: absolute;
+  top: 60%; 
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.scroll-left {
+  left: 0px; 
+}
+
+.scroll-right {
+  right: 0px; 
+}
+
+.scrolling-div {
+  max-width: 80%;
+  margin: 0 auto;
+  position: relative; 
 }

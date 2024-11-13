@@ -218,3 +218,8 @@ class SeatDelete(DeleteView):
 
 ## ----------------------------------- Booking
 
+
+## i will delete it
+
+def show_booking(request):
+   return render(request, 'bookings/booking_list.html')

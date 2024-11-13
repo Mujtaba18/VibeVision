@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+<!-- {% extends 'base.html' %}
 {% load static %}
 {% block content %}
 
@@ -37,7 +37,7 @@
     
     <div class="iframe-container">
       <iframe 
-        src="https://www.youtube.com/embed/__2bjWbetsA?autoplay=1" 
+        src="{{ movie.trailer_url }}?autoplay=1" 
         allowfullscreen>
       </iframe>
     </div>
@@ -61,16 +61,14 @@
 
 <div>
 <div class="time-indetail">
-  05:10 PM
+  {{ ShowTime.show_time }}
 </div>
 
-<div class="time-indetail">
+ <div class="time-indetail">
   05:40 PM
-</div>
-
-</div>
-
-
+</div> -->
+<!-- 
+</div> -->
 
 
 
@@ -88,7 +86,9 @@
 
 
 
-<script>
+
+
+<!-- <script>
   function showTrailer() {
     document.querySelector('.iframe-container').style.display = 'block';
     document.querySelector('.overlay').style.display = 'block';
@@ -98,6 +98,6 @@
     document.querySelector('.iframe-container').style.display = 'none';
     document.querySelector('.overlay').style.display = 'none';
   }
-</script>
+</script> -->
 
-{% endblock %}
+<!-- {% endblock %} -->

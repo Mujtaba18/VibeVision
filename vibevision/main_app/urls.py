@@ -41,4 +41,10 @@ urlpatterns = [
 
     ## Booking
 
+
+
+    ## i will delete it
+
+    path('booking/', views.show_booking, name='booking')
+
 ]
