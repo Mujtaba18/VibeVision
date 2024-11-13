@@ -1,15 +1,74 @@
 {% extends 'base.html' %}
+
 {% block content %}
   <h2>Booking for {{ movie.title }}</h2>
   <p>Showtime: {{ showtime.show_time }}</p>
-  <form method="post">
+  
+  <form method="post" id="booking-form" action="{% url 'booking_create' showtime.id %}">
     {% csrf_token %}
-    {{ form.as_p }}
+    
+    <div class="seat-layout">
+      {% for seat in available_seats %}
+        <div 
+          class="seat {% if seat.is_booked %}booked{% endif %} {% if seat in selected_seats %}selected{% endif %}"
+          data-seat-id="{{ seat.id }}" 
+          onclick="toggleSeatSelection(this)">
+          {{ seat.seat_code }}
+        </div>
+      {% endfor %}
+    </div>
+    
+    <input type="hidden" name="selected_seats" id="selected-seats">
     <button type="submit" class="btn btn-success">Confirm Booking</button>
   </form>
 
+  <style>
+    .seat-layout {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 5px;
+    }
+
+    .seat {
+      width: 40px;
+      height: 40px;
+      background-color: #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .seat.booked {
+      background-color: red;
+      pointer-events: none; /* Disable click for booked seats */
+      color: white;
+    }
+
+    .seat.selected {
+      background-color: green;
+    }
+
+    /* Optional: Style for hover effect */
+    .seat:hover {
+      background-color: #bbb;
+    }
+  </style>
+
   <script>
-    let seats = document.getElementById("id_seats")  
-    M.FormSelect.init(seats);
+    function toggleSeatSelection(seat) {
+      if (!seat.classList.contains('booked')) {  // Prevent click on booked seats
+        seat.classList.toggle('selected');
+        updateSelectedSeats();
+      }
+    }
+
+    function updateSelectedSeats() {
+      let selectedSeats = [];
+      document.querySelectorAll('.seat.selected').forEach(seat => {
+        selectedSeats.push(seat.getAttribute('data-seat-id'));
+      });
+      document.getElementById('selected-seats').value = selectedSeats.join(',');
+    }
   </script>
 {% endblock %}

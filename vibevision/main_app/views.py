@@ -1,6 +1,6 @@
 from django.urls import reverse
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Movie, Room, ShowTime, Seat, BookingSeat, Booking, User
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView 
@@ -231,27 +231,58 @@ class SeatDelete(DeleteView):
 
 
 ## ----------------------------------- Booking
-class BookingCreateView(CreateView):
+class BookingCreateView(LoginRequiredMixin, CreateView):
     model = Booking
-    fields = ['seats']
+    fields = []
     template_name = 'bookings/booking_form.html'
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        # Retrieve the selected seats from the form data
+        selected_seat_ids = self.request.POST.get('selected_seats', '').split(',')
+        
+        # Handle the case where no seats are selected
+        if not selected_seat_ids or selected_seat_ids == ['']:
+            form.add_error(None, "Please select at least one seat.")
+            return self.form_invalid(form)
+
+        # Ensure that selected_seat_ids is a list of strings, not bytes
+        selected_seat_ids = [seat_id for seat_id in selected_seat_ids if seat_id]
+
+        # Process the rest of the form (movie, showtime, etc.)
         showtime_id = self.kwargs['showtime_id']
-        showtime = ShowTime.objects.get(id=showtime_id)
+        showtime = get_object_or_404(ShowTime, id=showtime_id)
+
+        form.instance.user = self.request.user
         form.instance.movie = showtime.movie
         form.instance.room = showtime.room
         form.instance.showtime = showtime
-        return super().form_valid(form)
+
+        # Save the booking instance
+        response = super().form_valid(form)
+
+        # Link selected seats with the booking
+        selected_seats = Seat.objects.filter(id__in=selected_seat_ids)
+        for seat in selected_seats:
+            BookingSeat.objects.create(booking=form.instance, seat=seat)
+
+        return response
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Get showtime object from the URL
         showtime_id = self.kwargs['showtime_id']
         showtime = ShowTime.objects.get(id=showtime_id)
-        context['movie'] = showtime.movie
         context['showtime'] = showtime
+        context['movie'] = showtime.movie
+
+        # Get available seats (those that are not booked for this showtime)
+        available_seats = Seat.objects.exclude(id__in=BookingSeat.objects.filter(booking__showtime=showtime).values('seat_id'))
+        context['available_seats'] = available_seats
         return context
-    
+
     def get_success_url(self):
-        return reverse('movie_detail', kwargs={'pk': self.object.movie.id})
+        movie_id = self.object.movie.id
+        url = reverse('movie_detail', kwargs={'pk': movie_id})
+        print(f"Redirect URL: {url}")  # Add this to check the URL
+        return url
