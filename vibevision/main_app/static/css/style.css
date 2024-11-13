@@ -492,3 +492,63 @@ button[type="submit"]:hover {
   margin: 0 auto;
   position: relative; 
 }
+
+
+/* Nav Bar burger menu */
+/* Slidebar styles */
+
+#slidebar {
+  height: 100%;
+  width: 0; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  right: 0; /* Positioned on the right */
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+  z-index: 1000;
+}
+
+body #slidebar a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+body #slidebar a:hover {
+  color: #f1f1f1;
+}
+
+body #slidebar .closebtn {
+  font-size: 36px;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 25px;
+}
+
+/* Page content style */
+#main {
+  transition: margin-right 0.3s;
+  padding: 16px;
+}
+
+/* Hamburger button */
+.menu-btn {
+  display: none;
+}
+
+/* Show Hamburger button on screens up to 1280px (increase max-width) */
+@media screen and (max-width: 1280px) {
+  .menu-btn {
+    display: block;
+    font-size: 30px;
+    cursor: pointer;
+  }
+}
+
+

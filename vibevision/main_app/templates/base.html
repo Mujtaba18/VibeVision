@@ -2,85 +2,144 @@
 
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>VibeVision</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css"
+      integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>VibeVision</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
+  <body>
+    <header class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <ul class="left">
+            <li><a href="/" class="brand-logo">&nbsp;&nbsp;VibeVision</a></li>
+          </ul>
+          <!-- Hamburger Menu for Small to Medium Screens -->
+          <ul class="right hide-on-med-and-up">
+            <li>
+              <a
+                href="javascript:void(0)"
+                class="menu-btn"
+                onclick="openSlidebar()"
+                >☰</a
+              >
+            </li>
+          </ul>
+          <ul class="right hide-on-small-only">
+            <li><a href="/about">About</a></li>
+            <li><a href="{% url 'seat_list' %}">Seats</a></li>
+            {% if user.is_authenticated %} {% if user.role == 'admin' %}
+            <li>Welcome, Admin!</li>
+            <li><a href="/showtimes">Show Time</a></li>
+            <li><a href="/movies">Movies</a></li>
+            <li><a href="/rooms">Rooms</a></li>
+            {% else %}
+            <li>Welcome, User!</li>
+            {% endif %}
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+            <li>
+              <a>
+                <form class="nostyle" action="{% url 'logout' %}" method="post">
+                  {% csrf_token %}
+                  <button class="logout-link" type="submit">Log Out</button>
+                </form>
+              </a>
+            </li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">Sign up</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+    </header>
 
-<body>
-  <header class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper">
-        <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;VibeVision</a></li>
-        </ul>
-        <ul class="right">
-          <li><a href="/about">About</a></li>
-          <li><a href="{% url 'seat_list' %}">Seats</a></li>
-          {% if user.is_authenticated %}
-          {% if user.role == 'admin' %}
-          <li>Welcome, Admin!</li>
-          <li><a href="/showtimes">Show Time</a></li>
-          <li><a href="/movies">Movies</a></li>
-          <li><a href="/rooms">Rooms</a></li>
-          <li><a href="/about">About</a></li>
-          {% else %}
-          <li>Welcome, User!</li>
-          {% endif %}
-          <li><a href="{% url 'profile' %}">Profile</a></li>
-          <li>
-          <li>
-            <a>
-              <form class="nostyle" action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button class="logout-link" type="submit">Log Out</button>
-              </form>
-            </a>
-          </li>
-          {% else %}
-          <li><a href="{% url 'signup' %}">Sign up</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          {% endif %}
-        </ul>
+    <!-- Slidebar -->
+    <div id="slidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeSlidebar()"
+        >×</a
+      >
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="{% url 'seat_list' %}">Seats</a>
+      {% if user.is_authenticated %} {% if user.role == 'admin' %}
+      <a href="/showtimes">Show Time</a>
+      <a href="/movies">Movies</a>
+      <a href="/rooms">Rooms</a>
+      {% endif %}
+      <a href="{% url 'profile' %}">Profile</a>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="logout-link">Log Out</button>
+      </form>
+      {% else %}
+      <a href="{% url 'signup' %}">Sign up</a>
+      <a href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </div>
+
+    <main id="main" class="container">{% block content %} {% endblock %}</main>
+
+    <footer class="page-footer">
+      <div class="right">
+        All Rights Reserved, &copy; 2024 VibeVision &nbsp;
       </div>
-    </nav>
-  </header>
-  <main class="container">
-    {% block content %}
-    {% endblock %}
-  </main>
-  <footer class="page-footer">
-    <div class="right">All Rights Reserved, &copy; 2024 VibeVision &nbsp;</div>
-  </footer>
-  
-  <script>
-    document.querySelectorAll(".scroll-left").forEach(button => {
-      button.addEventListener("click", function () {
-        const carouselContainer = button.closest('.scrolling-div').querySelector('.carousel-container');
-        carouselContainer.scrollBy({
-          left: -220,
-          behavior: "smooth",
-        });
-      });
-    });
-    
-    document.querySelectorAll(".scroll-right").forEach(button => {
-      button.addEventListener("click", function () {
-        const carouselContainer = button.closest('.scrolling-div').querySelector('.carousel-container');
-        carouselContainer.scrollBy({
-          left: 220,
-          behavior: "smooth",
-        });
-      });
-    });
-  </script>
-</body>
+    </footer>
+
+    <script>
+      // Open the slidebar (from the right)
+      function openSlidebar() {
+        document.getElementById("slidebar").style.width = "250px"; // Show sidebar
+        document.getElementById("main").style.marginRight = "250px"; // Shift main content
+      }
+
+      // Close the sidebar
+      function closeSlidebar() {
+        document.getElementById("slidebar").style.width = "0"; // Hide sidebar
+        document.getElementById("main").style.marginRight = "0"; // Reset main content
+      }
+
+      document.querySelectorAll(".scroll-left").forEach((button) => {
+        button.addEventListener("click", function () {
+          const carouselContainer = button
+            .closest(".scrolling-div")
+            .querySelector(".carousel-container")
+          carouselContainer.scrollBy({
+            left: -220,
+            behavior: "smooth",
+          })
+        })
+      })
+
+      document.querySelectorAll(".scroll-right").forEach((button) => {
+        button.addEventListener("click", function () {
+          const carouselContainer = button
+            .closest(".scrolling-div")
+            .querySelector(".carousel-container")
+          carouselContainer.scrollBy({
+            left: 220,
+            behavior: "smooth",
+          })
+        })
+      })
+    </script>
+  </body>
 </html>
