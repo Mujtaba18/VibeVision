@@ -36,7 +36,7 @@
       <td>{{ showtime.movie.duration }}</td>
 
       <td>
-        <a href="{% url 'showtime_update' showtime.id %}" class="btn blue">Edit</a>
+        <a href="{% url 'showtime_update' showtime.id showtime.movie.id %}" class="btn blue">Edit</a>
         <a href="{% url 'showtime_delete' showtime.id %}" class="btn red">Delete</a>
       </td>
     </tr>
