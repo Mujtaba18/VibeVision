@@ -1,11 +1,8 @@
-{% extends 'base.html' %} 
-{% load static %} 
-{% load custom_filters %} 
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% load custom_filters %} {% block
+content %}
 <h1>Movie List</h1>
 <div class="movie-table">
-
-  <table>
+  <table id="movieTable" class="display">
     <thead>
       <tr>
         <th>#</th>
@@ -21,47 +18,56 @@
         <th>Age Restriction</th>
         <th>Status</th>
         <th>Actions</th>
-        <th colspan="2"><a href="{% url 'movie_create' %}" style="color: white; background-color: #039be5; padding: 10px; border-radius: 10px; text-align: center; display: flex;">  <i class="material-icons">add   </i>
-         </a>
+        <th colspan="2">
+          <a
+            href="{% url 'movie_create' %}"
+            style="
+              color: white;
+              background-color: #039be5;
+              padding: 10px;
+              border-radius: 10px;
+              text-align: center;
+              display: flex;
+            "
+          >
+            <i class="material-icons">add </i>
+          </a>
         </th>
-  
-        
       </tr>
     </thead>
     <tbody>
       {% for movie in movie_list %}
       <tr>
-        <td style="font-weight: 800;">
-          {{ forloop.counter }}
-        </td>
+        <td style="font-weight: 800">{{ forloop.counter }}</td>
         <td>
-          {% if movie.movie_image %}
-          <img width="140px" height="90px" src={% static movie.movie_image|cut:'main_app/static/' %} />
-  
-          {% else %} No Image {% endif %}
+          {% if movie.movie_image %} <img width="140px" height="90px" src={%
+          static movie.movie_image|cut:'main_app/static/' %} /> {% else %} No
+          Image {% endif %}
         </td>
         <td>{{ movie.title }}</td>
         <td>
-          {% if movie.genres.all %}
-              {% for genre in movie.genres.all %}
-                  {{ genre.name }}{% if not forloop.last %}, {% endif %}
-              {% endfor %}
-          {% else %}
-              No Genres
-          {% endif %}
+          {% if movie.genres.all %} {% for genre in movie.genres.all %} {{
+          genre.name }}{% if not forloop.last %}, {% endif %} {% endfor %} {%
+          else %} No Genres {% endif %}
         </td>
-         <td>{{ movie.subtitle }}</td>
+        <td>{{ movie.subtitle }}</td>
         <td>{{ movie.duration }}</td>
         <td>{{ movie.release_date }}</td>
         <td>{{ movie.language }}</td>
         <td><a href="{{ movie.trailer_url }}">Watch Trailer</a></td>
-  
+
         <td>{{ movie.rating }}</td>
         <td>{{ movie.age_restriction }}</td>
         <td>{{ movie.status }}</td>
         <td colspan="2">
-          <a href="{% url 'movie_update' movie.id %}" class="btn blue">Edit</a> 
+          <a href="{% url 'movie_update' movie.id %}" class="btn blue">Edit</a>
           <a href="{% url 'movie_delete' movie.id %}" class="btn red">Delete</a>
+          <a
+            href="{% url 'showtime_create' %}?movie_id={{ movie.id }}"
+            class="btn green"
+          >
+            Showtime</a
+          >
         </td>
       </tr>
       {% endfor %}
@@ -74,30 +80,27 @@
 <!-- Movie Container -->
 <div class="backoff-moviecard">
   <!-- Individual Movie Card -->
-  {% if movie_list|has_now_showing %}
-    {% for movie in movie_list %}
-        {% if movie.status == "Now Showing" %}
-        <div class="movie-card">
-          <a href="{% url 'movie_detail' movie.id %}">
-            <!-- Movie Image -->
-            <img
-                src="{% static movie.movie_image|cut:'main_app/static/' %}"
-                alt="{{ movie.title }}"
-                style="width: 207px; height: 276px; object-fit: cover;"
-            />
-            <!-- Movie Name (Hidden by Default) -->
-            <div class="movie-hover-detail">
-                {{ movie.title }} <br>
-                {{ movie.language }} | {{ movie.age_restriction }} | {{ movie.duration|format_duration }}
-            </div>
-          </a>
-        </div>
-    {% endif %}
-  {% endfor %}
-{% else %}
+  {% if movie_list|has_now_showing %} {% for movie in movie_list %} {% if
+  movie.status == "Now Showing" %}
+  <div class="movie-card">
+    <a href="{% url 'movie_detail' movie.id %}">
+      <!-- Movie Image -->
+      <img
+        src="{% static movie.movie_image|cut:'main_app/static/' %}"
+        alt="{{ movie.title }}"
+        style="width: 207px; height: 276px; object-fit: cover"
+      />
+      <!-- Movie Name (Hidden by Default) -->
+      <div class="movie-hover-detail">
+        {{ movie.title }} <br />
+        {{ movie.language }} | {{ movie.age_restriction }} | {{
+        movie.duration|format_duration }}
+      </div>
+    </a>
+  </div>
+  {% endif %} {% endfor %} {% else %}
   <p>Sorry, No Currently Showing Movies :(</p>
-{% endif %}
-  
+  {% endif %}
 </div>
 
 <h3>Coming Soon</h3>
@@ -105,29 +108,40 @@
 <!-- Movie Container -->
 <div class="backoff-moviecard">
   <!-- Individual Movie Card -->
-  {% if movie_list|has_coming_soon %}
-    {% for movie in movie_list %}
-        {% if movie.status == "Coming Soon" %}
-        <div class="movie-card">
-          <a href="{% url 'movie_detail' movie.id %}">
-            <!-- Movie Image -->
-            <img
-                src="{% static movie.movie_image|cut:'main_app/static/' %}"
-                alt="{{ movie.title }}"
-                style="width: 207px; height: 276px; object-fit: cover;"
-            />
-            <!-- Movie Name (Hidden by Default) -->
-            <div class="movie-hover-detail">
-                {{ movie.title }} <br>
-                {{ movie.language }} | {{ movie.age_restriction }} | {{ movie.duration|format_duration }}
-            </div>
-          </a>
-        </div>
-        {% endif %}
-    {% endfor %}
-  {% else %}
+  {% if movie_list|has_coming_soon %} {% for movie in movie_list %} {% if
+  movie.status == "Coming Soon" %}
+  <div class="movie-card">
+    <a href="{% url 'movie_detail' movie.id %}">
+      <!-- Movie Image -->
+      <img
+        src="{% static movie.movie_image|cut:'main_app/static/' %}"
+        alt="{{ movie.title }}"
+        style="width: 207px; height: 276px; object-fit: cover"
+      />
+      <!-- Movie Name (Hidden by Default) -->
+      <div class="movie-hover-detail">
+        {{ movie.title }} <br />
+        {{ movie.language }} | {{ movie.age_restriction }} | {{
+        movie.duration|format_duration }}
+      </div>
+    </a>
+  </div>
+  {% endif %} {% endfor %} {% else %}
   <p>Sorry, No Coming Soon Movies :(</p>
   {% endif %}
-  
 </div>
+<link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"
+/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#movieTable").DataTable({
+      pageLength: 5,
+      lengthMenu: [5, 10, 25, 50],
+    })
+  })
+</script>
 {% endblock %}

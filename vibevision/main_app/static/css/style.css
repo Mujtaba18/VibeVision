@@ -464,3 +464,29 @@ button[type="submit"]:hover {
 .info p {
   font-size: 18px;
 }
+/*  END here  */
+
+/* Style for the DataTable */
+#showtimeTable_length label, #movieTable_length label{
+  display: none;
+ }
+ 
+ #showtimeTable_filter label , #movieTable_filter label {
+   font-weight: bold;
+   margin: 0;
+ }
+ 
+ #showtimeTable_filter input , #movieTable_filter input {
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   padding: 8px;
+   width: 240px; 
+   height: 30px;
+ }
+ 
+ #showtimeTable_filter input:focus ,#movieTable_filter input:focus {
+   border-color: #007bff; 
+   outline: none; 
+   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /
+ }
+ /* end  */
