@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Sign Up</h1>
+<h1 class="welcom-profile">Sign Up</h1>
 
 {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
 
-<form method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+<form method="post" action="{% url 'signup' %}" enctype="multipart/form-data" class="signup-page">
   {% csrf_token %}
   {{ form.as_p }}
   <input type="submit" class="btn" value="signup">

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>User Profile</h2>
+<h2 class="welcom-profile">Welcome, {{ user.username }}</h2>
 
 <div class="profile">
   <p>
@@ -15,12 +15,10 @@
   {% endif %}
   </p>
 
-  <h3>Welcome, {{ user.username }}</h3>
-
   <p>First Name: {{ user.first_name }}</p>
   <p>Last Name: {{ user.last_name }}</p>
   <p>Email: {{ user.email }}</p>
-  <p>Role: {{ user.role }}</p>
+  <!-- <p>Role: {{ user.role }}</p> -->
   <a href="{% url 'profile_update'  %}">Edit</a>
 </div>
 
