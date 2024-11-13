@@ -8,9 +8,11 @@
     {% csrf_token %}
     
     <div class="seat-layout">
-      {% for seat in available_seats %}
+      {% for seat in all_seats %}
         <div 
-          class="seat {% if seat.is_booked %}booked{% endif %} {% if seat in selected_seats %}selected{% endif %}"
+          class="seat 
+            {% if seat.id in booked_seats %}booked{% endif %}
+            {% if seat.id in selected_seats %}selected{% endif %}"
           data-seat-id="{{ seat.id }}" 
           onclick="toggleSeatSelection(this)">
           {{ seat.seat_code }}
@@ -49,7 +51,6 @@
       background-color: green;
     }
 
-    /* Optional: Style for hover effect */
     .seat:hover {
       background-color: #bbb;
     }
@@ -57,7 +58,8 @@
 
   <script>
     function toggleSeatSelection(seat) {
-      if (!seat.classList.contains('booked')) {  // Prevent click on booked seats
+      // Prevent click on booked seats
+      if (!seat.classList.contains('booked')) {
         seat.classList.toggle('selected');
         updateSelectedSeats();
       }
