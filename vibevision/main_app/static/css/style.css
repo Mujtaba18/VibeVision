@@ -624,6 +624,9 @@ textarea:focus {
 /*  END here  */
 
 /* Style for the DataTable */
+#showtimeTable {
+  background-color: white;
+}
 #showtimeTable_length label, #movieTable_length label{
   display: none;
  }
@@ -676,11 +679,11 @@ textarea:focus {
 .hamburger {
   display: none;
   cursor: pointer;
-  z-index: 1000; /* Ensure the icon is on top */
+  z-index: 1000; 
 }
 .hamburger i {
-  color: white; /* Ensure the color isn't blending with the background */
-  font-size: 10rem; /* Make the icon larger for visibility */
+  color: white; 
+  font-size: 10rem;
 }
 
 
@@ -1062,3 +1065,29 @@ input[type="file"]::file-selector-button {
   margin-left: 10px;
   margin-right: 10px;
 } 
+
+.box {
+  background-color: #000;
+  color: white;
+  border: 2px solid #2c2c2c;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.bookingTable {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.total_price {
+  border-left: 1px solid white;
+}
+
+.titles {
+  color: var(--text-color--);
+}
+
+.titles span {
+  color: white;
+}

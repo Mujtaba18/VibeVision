@@ -5,33 +5,34 @@
 
 <br />
 <br />
+<div class="box">
 
-<div class="detail-detail">
-  <div class="Detail-img">
-    <img src="{% static movie.movie_image|cut:'main_app/static/' %}" alt="Venom" />
+  <div class="detail-detail">
+    <div class="Detail-img">
+      <img src="{% static movie.movie_image|cut:'main_app/static/' %}" alt="{{ movie.title }}" />
+    </div>
+  
+    <div class="movie-detail">
+      <p id="detail">
+      <h3 class="titles">{{ movie.title }}</h3>
+      </p>
+      <p id="detail"><b>Booked by: </b>{{ user.username }}</p>
+      <p id="detail"><b>Booking time: </b>{{ booking_time }}</p>
+      <p id="detail"><b>Showtime: </b>{{ showtime.show_time }}</p>
+      <p id="detail"><b>Room: </b>{{ room.name }}</p>
+      <h3 class="titles">Seats:</h3>
+      <ul>
+        {% for seat in seats %}
+        <li><b>{{ seat.seat_code }} - {{ seat.get_seat_type_display }} (${{ seat.price }}), </b></li>
+        {% empty %}
+        <li>No seats booked.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  
   </div>
-
-  <div class="movie-detail">
-    <p id="detail">
-    <h3>{{ movie.title }}</h3>
-    </p>
-    <p id="detail">Booked by: {{ user.username }}</p>
-    <p id="detail">Booking time: {{ booking_time }}</p>
-    <p id="detail">Showtime: {{ showtime.show_time }}</p>
-    <p id="detail">Showtime: {{ room.name }}</p>
-    <h3>Seats:</h3>
-    <ul>
-      {% for seat in seats %}
-      <li>{{ seat.seat_code }} - {{ seat.get_seat_type_display }} (${{ seat.price }})</li>
-      {% empty %}
-      <li>No seats booked.</li>
-      {% endfor %}
-    </ul>
-  </div>
-
-  <div>
-
-    <h3>Total Price: ${{ total_price }}</h3>
+  <div class="total_price">
+    <h3 class="titles">Total Price: <span>{{ total_price }} BD</span></h3>
   </div>
 
 
