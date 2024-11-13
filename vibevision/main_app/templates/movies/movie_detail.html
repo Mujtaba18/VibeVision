@@ -2,12 +2,13 @@
 {% load static %}
 {% block content %}
 
-<h2></h2>
+<br/>
+<br/>
 
 <div class="detail-detail">
   <div class="Detail-img">
     <img
-      src="{% static 'uploads/venom.jpg' %}"
+      src="{% static movie.movie_image|cut:'main_app/static/' %}"
       alt="Venom"
       
     />
@@ -15,14 +16,88 @@
 
   <div class="movie-detail">
   <div class="pg">
-    <p>PG-13</p>
+    <p>PG-13|2h07m</p>
   </div>
-    <p id="detail">Name: Venom</p>
-    <p id="detail">Language: English</p>
-    <p id="detail">Subtitle: Arabic</p>
-    <p id="detail">Genre: Action</p>
-    <p id="detail">Release Date: 10/11/2024</p>
+    <p id="detail">Name: {{ movie.title }}</p>
+    <p id="detail">Language: {{ movie.language }}</p>
+    <p id="detail">Subtitle: {{ movie.subtitle }}</p>
+    <p id="detail">Genre: 
+      {% if movie.genres.all %}
+      {% for genre in movie.genres.all %}
+          {{ genre.name }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+      {% else %}
+          No Genres
+      {% endif %}
+    </p>
+    <p id="detail">Release Date: {{ movie.release_date }}</p>
+
+    <div class="tr" onclick="showTrailer()">Trailer</div>
+    <div class="overlay" onclick="hideTrailer()"></div>
+    
+    <div class="iframe-container">
+      <iframe 
+        src="https://www.youtube.com/embed/__2bjWbetsA?autoplay=1" 
+        allowfullscreen>
+      </iframe>
+    </div>
+    </div>
   </div>
+  
+   
+
 </div>
+
+<br/>
+<hr class="hr-color">
+
+<div class="day-indetail">
+  TUE<br/>
+  12<br/>
+  NOV
+</div>
+
+<hr class="hr-color">
+
+<div>
+<div class="time-indetail">
+  05:10 PM
+</div>
+
+<div class="time-indetail">
+  05:40 PM
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function showTrailer() {
+    document.querySelector('.iframe-container').style.display = 'block';
+    document.querySelector('.overlay').style.display = 'block';
+  }
+
+  function hideTrailer() {
+    document.querySelector('.iframe-container').style.display = 'none';
+    document.querySelector('.overlay').style.display = 'none';
+  }
+</script>
 
 {% endblock %}

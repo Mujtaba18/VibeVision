@@ -93,7 +93,6 @@ class MovieCreate(LoginRequiredMixin,  CreateView):
 class MovieList(ListView):
     model = Movie
     template_name = 'movies/movie_list.html'
-    
 
 #  movie delete view 
 class MovieDelete(DeleteView):
@@ -228,4 +227,3 @@ class SeatDelete(DeleteView):
 
 
 ## ----------------------------------- Booking
-
