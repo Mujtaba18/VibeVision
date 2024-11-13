@@ -1,29 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
 {% block content %}
 
-<h1>Booking Details</h1>
+<br />
+<br />
 
-<div>
-  <h2>Booking for {{ movie.title }}</h2>
-  <p><strong>Booked by:</strong> {{ user.username }}</p>
-  <p><strong>Booking Date and Time:</strong> {{ booking_time }}</p>
-  <p><strong>Showtime:</strong> {{ showtime.show_time }} ({{ showtime.get_show_time_display }})</p>
-  <p><strong>Room:</strong> {{ room.name }}</p>
+<div class="detail-detail">
+  <div class="Detail-img">
+    <img src="{% static movie.movie_image|cut:'main_app/static/' %}" alt="Venom" />
+  </div>
 
-  <h3>Seats:</h3>
-  <ul>
-    {% for seat in seats %}
-    <li>{{ seat.seat_code }} - {{ seat.get_seat_type_display }} (${{ seat.price }})</li>
-    {% empty %}
-    <li>No seats booked.</li>
-    {% endfor %}
-  </ul>
+  <div class="movie-detail">
+    <p id="detail">
+    <h3>{{ movie.title }}</h3>
+    </p>
+    <p id="detail">Booked by: {{ user.username }}</p>
+    <p id="detail">Booking time: {{ booking_time }}</p>
+    <p id="detail">Showtime: {{ showtime.show_time }} ({{ showtime.get_show_time_display }})</p>
+    <p id="detail">Showtime: {{ room.name }}</p>
+    <h3>Seats:</h3>
+    <ul>
+      {% for seat in seats %}
+      <li>{{ seat.seat_code }} - {{ seat.get_seat_type_display }} (${{ seat.price }})</li>
+      {% empty %}
+      <li>No seats booked.</li>
+      {% endfor %}
+    </ul>
+  </div>
 
-  <hr>
-  <h3>Total Price: ${{ total_price }}</h3>
-</div>
+  <div>
+
+    <h3>Total Price: ${{ total_price }}</h3>
+  </div>
 
 
 
 
-{% endblock %}
+  {% endblock %}
