@@ -8,11 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>VibeVision</title>
-      <!-- DataTables CSS -->
+  <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css"
+    integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -41,14 +42,15 @@
         <li>Welcome, User!</li>
         <li><a href="/about">About</a></li>
         {% endif %}
+        <li><a href="{% url 'booking_list' %}">Booking</a></li>
         <li><a href="{% url 'profile' %}">Profile</a></li>
         <li>
       </ul>
     </div>
     <div class="login-sec">
       <form class="nostyle" action="{% url 'logout' %}" method="post">
-      {% csrf_token %}
-      <button class="log" type="submit">Log Out</button>
+        {% csrf_token %}
+        <button class="log" type="submit">Log Out</button>
       </form>
       {% else %}
       <a class="log" href="{% url 'signup' %}">Sign up</a>
@@ -63,58 +65,59 @@
   <footer class="page-footer">
     <div class="right">All Rights Reserved, &copy; 2024 VibeVision &nbsp;</div>
   </footer>
-  
+
   <script>
 
-document.querySelectorAll(".scroll-left").forEach(button => {
-    button.addEventListener("click", function () {
-      const carouselContainer = button.closest('.scrolling-div').querySelector('.carousel-container');
-      carouselContainer.scrollBy({
-        left: -220,
-        behavior: "smooth",
-      });
-    });
-  });
-  
-  document.querySelectorAll(".scroll-right").forEach(button => {
-    button.addEventListener("click", function () {
-      const carouselContainer = button.closest('.scrolling-div').querySelector('.carousel-container');
-      carouselContainer.scrollBy({
-        left: 220,
-        behavior: "smooth",
-      });
-    });
-  });
-      document.addEventListener("DOMContentLoaded", function () {
-        const text = "Welcome to our cinema";
-        const h1 = document.querySelector(".home-container h1");
-        let index = 0;
-
-        function type() {
-          if (index < text.length) {
-            h1.textContent += text.charAt(index);
-            index++;
-            setTimeout(type, 70);
-          }
-        }
-
-        type();
-
-        // Search functionality
-        const searchBtn = document.getElementById('search-btn');
-        const searchInput = document.getElementById('search-div');
-
-        searchBtn.addEventListener('click', function () {
-          if (searchInput.style.display === "none" || searchInput.style.display === "") {
-            searchInput.style.display = "block";
- 
-
-          } else {
-            searchInput.style.display = "none";
-          }
+    document.querySelectorAll(".scroll-left").forEach(button => {
+      button.addEventListener("click", function () {
+        const carouselContainer = button.closest('.scrolling-div').querySelector('.carousel-container');
+        carouselContainer.scrollBy({
+          left: -220,
+          behavior: "smooth",
         });
       });
-    
+    });
+
+    document.querySelectorAll(".scroll-right").forEach(button => {
+      button.addEventListener("click", function () {
+        const carouselContainer = button.closest('.scrolling-div').querySelector('.carousel-container');
+        carouselContainer.scrollBy({
+          left: 220,
+          behavior: "smooth",
+        });
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      const text = "Welcome to our cinema";
+      const h1 = document.querySelector(".home-container h1");
+      let index = 0;
+
+      function type() {
+        if (index < text.length) {
+          h1.textContent += text.charAt(index);
+          index++;
+          setTimeout(type, 70);
+        }
+      }
+
+      type();
+
+      // Search functionality
+      const searchBtn = document.getElementById('search-btn');
+      const searchInput = document.getElementById('search-div');
+
+      searchBtn.addEventListener('click', function () {
+        if (searchInput.style.display === "none" || searchInput.style.display === "") {
+          searchInput.style.display = "block";
+
+
+        } else {
+          searchInput.style.display = "none";
+        }
+      });
+    });
+
   </script>
 </body>
+
 </html>

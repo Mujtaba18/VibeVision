@@ -319,3 +319,49 @@ class BookingCreateView(LoginRequiredMixin, CreateView):
         movie_id = self.object.movie.id
         url = reverse('movie_detail', kwargs={'pk': movie_id})
         return url
+
+# Booking List View
+class BookingList( ListView):
+    model = Booking
+    template_name = 'bookings/booking_list.html'
+
+#  Booking delete view 
+class BookingDelete(DeleteView):
+    model= Booking
+    template_name = 'bookings/booking_confirm_delete.html'
+    success_url = '/booking/'  
+
+#  Booking details view 
+class booking_detail(DetailView):
+    model = Booking
+    template_name = 'bookings/booking_detail.html'
+
+def booking_detail(request, booking_id):
+    # Retrieve the booking object using booking_id
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    # Fetch related objects (seats, movie, showtime, etc.)
+    seats = booking.seats.all()  # All seats associated with this booking
+    movie = booking.movie
+    showtime = booking.showtime
+    room = booking.room
+    user = booking.user
+    booking_time = booking.booking_time
+
+    # Calculate total price for the seats
+    total_price = sum(seat.price for seat in seats)
+
+    # Render the template and pass the context
+    context = {
+        'booking': booking,
+        'seats': seats,
+        'movie': movie,
+        'showtime': showtime,
+        'room': room,
+        'user': user,
+        'booking_time': booking_time,
+        'total_price': total_price
+    }
+
+    return render(request, 'bookings/booking_detail.html', context)
+

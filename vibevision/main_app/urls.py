@@ -41,5 +41,8 @@ urlpatterns = [
 
 
     ## Booking
+    path('booking/', views.BookingList.as_view(), name='booking_list'),
+    path('booking/<int:pk>/delete/', views.BookingDelete.as_view(), name='booking_delete'),
     path('booking/create/<int:showtime_id>/', views.BookingCreateView.as_view(), name='booking_create'),
+    path('booking/detail/<int:booking_id>/', views.booking_detail, name='booking_detail' ),
 ]

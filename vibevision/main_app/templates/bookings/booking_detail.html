@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Booking Details</h1>
+
+<div>
+  <h2>Booking for {{ movie.title }}</h2>
+  <p><strong>Booked by:</strong> {{ user.username }}</p>
+  <p><strong>Booking Date and Time:</strong> {{ booking_time }}</p>
+  <p><strong>Showtime:</strong> {{ showtime.show_time }} ({{ showtime.get_show_time_display }})</p>
+  <p><strong>Room:</strong> {{ room.name }}</p>
+
+  <h3>Seats:</h3>
+  <ul>
+    {% for seat in seats %}
+    <li>{{ seat.seat_code }} - {{ seat.get_seat_type_display }} (${{ seat.price }})</li>
+    {% empty %}
+    <li>No seats booked.</li>
+    {% endfor %}
+  </ul>
+
+  <hr>
+  <h3>Total Price: ${{ total_price }}</h3>
+</div>
+
+
+
+
+{% endblock %}
