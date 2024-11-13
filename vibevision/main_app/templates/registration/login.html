@@ -2,9 +2,9 @@
 {% block content %}
 
 
-<h1>Log In</h1>
+<h1 class="welcom-profile">Log In</h1>
 
-<form action="{% url 'login' %}" method="post">
+<form action="{% url 'login' %}" method="post" class="login-page">
   {%csrf_token%}
   {{ form.as_p }}
   <input type="submit" value="login" class="btn" />

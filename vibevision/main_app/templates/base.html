@@ -28,7 +28,14 @@
         <h1>VibeVision</h1>
       </a>
     </div>
-    <div class="links">
+    <div class="hamburger" onclick="toggleMenu()">
+      <div class="cc" onclick="myFunction(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+    </div>
+    <div class="links" id="nav-links">
       <ul>
         {% if user.is_authenticated %}
         {% if user.role == 'admin' %}
@@ -40,6 +47,11 @@
         <li><a href="/about">About</a></li>
         {% else %}
         <li>Welcome, User!</li>
+        <form class="search" method="GET" action="{% url 'showtime_search' %}">
+          <input type="text" name="search" placeholder=" Search for a movie..." value="{{ query }}">
+          <button type="submit">Search</button>
+        </form>
+        <li><a href="/movies">Movies</a></li>
         <li><a href="/about">About</a></li>
         {% endif %}
         <li><a href="{% url 'booking_list' %}">Booking</a></li>
@@ -88,7 +100,7 @@
       });
     });
     document.addEventListener("DOMContentLoaded", function () {
-      const text = "Welcome to our cinema";
+      const text = "Welcome To Our Cinema 🍿";
       const h1 = document.querySelector(".home-container h1");
       let index = 0;
 
@@ -117,6 +129,20 @@
       });
     });
 
+    document.addEventListener("DOMContentLoaded", function () {
+      // Select the hamburger and nav-links elements
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.getElementById('nav-links');
+
+      // Toggle the nav-links visibility on hamburger click
+      hamburger.addEventListener('click', function () {
+        navLinks.classList.toggle('active'); // Add/remove the 'active' class
+      });
+    });
+
+    function myFunction(x) {
+      x.classList.toggle("change");
+    }
   </script>
 </body>
 

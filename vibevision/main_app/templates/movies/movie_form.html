@@ -3,8 +3,8 @@
 <form method="post"  enctype="multipart/form-data">
   {% csrf_token %} {{ form.as_p }}
   <button type="submit">Save</button>
+  <a class="cancel" href="{% url 'movie_list' %}">Cancel</a>
 </form>
-<a href="{% url 'movie_list' %}">Cancel</a>
 
 <script>
   let dateEl = document.getElementById("id_release_date")

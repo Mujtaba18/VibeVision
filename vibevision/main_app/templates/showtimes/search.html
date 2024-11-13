@@ -1,24 +1,76 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% load custom_filters %}
 {% block content %}
-<h1>Search Showtimes</h1>
+<h1>Search Movies</h1>
 
-<form method="GET" action="{% url 'showtime_search' %}">
-  <input type="text" name="search" placeholder="Search for a movie..." value="{{ query }}">
-  <button type="submit">Search</button>
-</form>
+<div class="tab-container">
+  <p class="tab-button active" onclick="openTab(event, 'now-showing')">Showing Now</p>
+  <p class="tab-button" onclick="openTab(event, 'coming-soon')">Coming Soon</p>
+</div>
 
-{% if results %}
-<h2>Search Results:</h2>
-<ul>
-  {% for showtime in results %}
-  <li>
-    Movie: {{ showtime.movie.title }} - Room: {{ showtime.room.name }} - Time: {{ showtime.show_time }}
+{% if movies %}
+  <!-- Now Showing -->
+  <div id="now-showing" class="tab-content" style="display: block;">
+    <div class="backoff-moviecard">
+      {% if movies|has_now_showing %}
+        {% for movie in movies %}
+          {% if movie.status == "Now Showing" %}
+          <div class="movie-card">
+            <a href="{% url 'movie_detail' movie.id %}">
+              <img src="{% static movie.movie_image|cut:'main_app/static/' %}" alt="{{ movie.title }}" style="width: 207px; height: 276px; object-fit: cover;" />
+              <div class="movie-hover-detail">
+                {{ movie.title }} <br>
+                {{ movie.language }} | {{ movie.age_restriction }} | {{ movie.duration|format_duration }}
+              </div>
+            </a>
+          </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+      <p class="nomovies">Sorry, No Currently Showing Movies :(</p>
+      {% endif %}
+    </div>
+  </div>
 
-  </li>
-  {% endfor %}
-</ul>
+  <!-- Coming Soon -->
+  <div id="coming-soon" class="tab-content">
+    <div class="backoff-moviecard">
+      {% if movies|has_coming_soon %}
+        {% for movie in movies %}
+          {% if movie.status == "Coming Soon" %}
+          <div class="movie-card">
+            <a href="{% url 'movie_detail' movie.id %}">
+              <img src="{% static movie.movie_image|cut:'main_app/static/' %}" alt="{{ movie.title }}" style="width: 207px; height: 276px; object-fit: cover;" />
+              <div class="movie-hover-detail">
+                {{ movie.title }} <br>
+                {{ movie.language }} | {{ movie.age_restriction }} | {{ movie.duration|format_duration }}
+              </div>
+            </a>
+          </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+      <p class="nomovies">Sorry, No Coming Soon Movies :(</p>
+      {% endif %}
+    </div>
+  </div>
 {% else %}
 <p>No results found.</p>
 {% endif %}
+
+<script>
+  function openTab(evt, tabName) {
+    var tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => content.style.display = 'none');
+
+    var tabButtons = document.querySelectorAll('.tab-button');
+    tabButtons.forEach(button => button.classList.remove('active'));
+
+    document.getElementById(tabName).style.display = 'block';
+    evt.currentTarget.classList.add('active');
+  }
+
+  document.getElementById('now-showing').style.display = 'block';
+</script>
 {% endblock %}
