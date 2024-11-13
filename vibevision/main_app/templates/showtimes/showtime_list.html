@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
 <h1>Showtime List</h1>
 <table id="showtimeTable">
@@ -12,7 +12,8 @@
       <th>Show duration</th>
 
       <th style="width: 15px;">
-        <!-- <a href="{% url 'showtime_create' %}" style="color: white; background-color: #039be5; padding: 10px; border-radius: 10px; text-align: center; display: flex; width: 40px;">
+        <!-- <a href="{% url 'showtime_create' %}"
+          style="color: white; background-color: #039be5; padding: 10px; border-radius: 10px; text-align: center; display: flex; width: 40px;">
           <i class="material-icons">add</i>
         </a> -->
       </th>
@@ -25,25 +26,24 @@
       <td>{{ showtime.movie.title }}</td>
       <td>{{ showtime.room.name }}</td>
       <td>
-        {{ showtime.show_time|date:"D d M Y h:i" }} 
+        {{ showtime.show_time|date:"D d M Y h:i" }}
         <span style="font-weight: 600;">{{ showtime.show_time|date:"A" }}</span>
-    </td>  
-    <td>
-      {{ showtime.show_end_time|date:"D d M Y h:i" }} 
-      <span style="font-weight: 600;">{{ showtime.show_end_time|date:"A" }}</span>
-   </td> 
-    <td>{{ showtime.movie.duration }}</td>
+      </td>
+      <td>
+        {{ showtime.show_end_time|date:"D d M Y h:i" }}
+        <span style="font-weight: 600;">{{ showtime.show_end_time|date:"A" }}</span>
+      </td>
+      <td>{{ showtime.movie.duration }}</td>
 
-     <td>
-      
-        <a href="{% url 'showtime_update' showtime.id showtime.movie.id %}" class="btn blue">Edit<a>
+      <td>
+        <a href="{% url 'showtime_update' showtime.id %}" class="btn blue">Edit</a>
         <a href="{% url 'showtime_delete' showtime.id %}" class="btn red">Delete</a>
       </td>
     </tr>
     {% empty %}
-      <tr>
-        <td colspan="5">No showtimes available.</td>
-      </tr>
+    <tr>
+      <td colspan="5">No showtimes available.</td>
+    </tr>
     {% endfor %}
   </tbody>
 </table>
@@ -57,4 +57,10 @@
     });
   });
 </script>
+<h1>Search Showtimes</h1>
+
+<form method="GET" action="{% url 'showtime_search' %}">
+  <input type="text" name="search" placeholder="Search for a movie..." value="{{ query }}">
+  <button type="submit">Search</button>
+</form>
 {% endblock %}

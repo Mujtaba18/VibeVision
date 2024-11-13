@@ -30,7 +30,7 @@ urlpatterns = [
 
     path('showtime/<int:pk>/update/<int:movie_id>/', views.ShowTimeUpdate.as_view(), name='showtime_update'),
     path('showtimes/<int:pk>/delete/', views.ShowTimeDelete.as_view(), name='showtime_delete'),
-
+    path('showtime/search', views.search ,name='showtime_search'),
     ## Seat
     path('seat/', views.SeatList.as_view(), name='seat_list'),
     path('seat/create/', views.SeatCreate.as_view(), name='seat_create'),

@@ -157,6 +157,16 @@ class RoomDelete(DeleteView):
 
 ## ----------------------------------- Showtime
 
+def search(request):
+    query = request.GET.get('search')  # Get the search query from the request
+    results = []
+    
+    if query:
+        # Search for showtimes by movie title
+        results = ShowTime.objects.filter(movie__title__icontains=query)
+
+    return render(request, 'showtimes/search.html', {'results': results, 'query': query})
+
 # ShowTime List View
 class ShowTimeList( ListView):
     model = ShowTime
